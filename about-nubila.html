@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nubila - The Physical Data Infrastructure for AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #1E1E1E;
+            --bg-card: #252525;
+            --bg-card-hover: #2A2A2A;
+            --tint-blue: #38E3FF;
+            --tint-blue-light: #DFFBFF;
+            --text-white: #FFFFFF;
+            --text-dark-0: #E0E0E0;
+            --text-dark-20: #B0B0B0;
+            --text-dark-40: #808080;
+            --text-dark-60: #606060;
+            --border-white: rgba(255,255,255,0.1);
+            --border-blue: rgba(56,227,255,0.3);
+            --gradient-text: linear-gradient(135deg, #DFFBFF 0%, #38E3FF 100%);
+            --gradient-btn: linear-gradient(135deg, #DFFBFF 0%, #38E3FF 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000000;
+            background: rgba(30,30,30,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-white);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .nav-logo img {
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dark-20);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-links a:hover {
+            color: var(--tint-blue);
+        }
+
+        .nav-links a .dropdown-arrow {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-right a {
+            color: var(--text-dark-20);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-right a:hover {
+            color: var(--tint-blue);
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-btn);
+            color: var(--bg-dark);
+            box-shadow: 0 4px 20px rgba(56,227,255,0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 30px rgba(56,227,255,0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--tint-blue);
+            border: 1px solid var(--tint-blue);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(56,227,255,0.1);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-white);
+            border: 1px solid var(--border-white);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--tint-blue);
+            color: var(--tint-blue);
+        }
+
+        /* Mobile nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px;
+            z-index: 1000000;
+            background: var(--bg-dark);
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-blue);
+        }
+
+        .mobile-nav img {
+            height: 24px;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-white);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--bg-dark);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .mobile-menu.open {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 500;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding-top: 120px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(56,227,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        .hero h1 .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-dark-20);
+            max-width: 700px;
+            margin: 24px auto 0;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 40px;
+            position: relative;
+        }
+
+        .hero-illustration {
+            width: 100%;
+            max-width: 900px;
+            margin: 64px auto 0;
+            position: relative;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--tint-blue);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-title .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: var(--text-dark-20);
+            max-width: 700px;
+            margin: 24px auto 0;
+            line-height: 1.6;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            text-align: center;
+        }
+
+        .welcome-section .section-title {
+            margin-bottom: 24px;
+        }
+
+        /* Offer Cards */
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .offer-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-white);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .offer-card:hover {
+            border-color: var(--border-blue);
+            transform: translateY(-4px);
+        }
+
+        .offer-card-label {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--tint-blue);
+            margin-bottom: 16px;
+        }
+
+        .offer-card h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .offer-card p {
+            color: var(--text-dark-20);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .offer-card .btn {
+            margin-top: 16px;
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-white);
+            border-radius: 20px;
+            padding: 32px;
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-blue);
+            transform: translateY(-4px);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, rgba(56,227,255,0.1), rgba(56,227,255,0.05));
+        }
+
+        .feature-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--text-dark-20);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Ecosystem Section */
+        .ecosystem-section {
+            background: linear-gradient(180deg, transparent 0%, rgba(56,227,255,0.03) 50%, transparent 100%);
+        }
+
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 64px;
+        }
+
+        .ecosystem-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-white);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .ecosystem-card:hover {
+            border-color: var(--border-blue);
+            transform: translateY(-4px);
+        }
+
+        .ecosystem-card img {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            object-fit: contain;
+        }
+
+        .ecosystem-card h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .ecosystem-card p {
+            color: var(--text-dark-20);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .ecosystem-description {
+            text-align: center;
+            max-width: 800px;
+            margin: 48px auto 0;
+            color: var(--text-dark-20);
+            font-size: 16px;
+            line-height: 1.8;
+        }
+
+        /* Industries Section */
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 64px;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-white);
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .industry-card:hover {
+            border-color: var(--border-blue);
+            transform: translateY(-4px);
+        }
+
+        .industry-card img {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            object-fit: contain;
+        }
+
+        .industry-card h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .industry-card p {
+            color: var(--text-dark-20);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* App Download Section */
+        .app-section {
+            text-align: center;
+        }
+
+        .app-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 64px;
+            margin-top: 64px;
+        }
+
+        .app-info {
+            text-align: left;
+            max-width: 500px;
+        }
+
+        .app-info h3 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .app-info p {
+            color: var(--text-dark-20);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .app-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .app-preview {
+            position: relative;
+        }
+
+        .app-preview img {
+            width: 280px;
+            height: auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .qr-codes {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .qr-code {
+            text-align: center;
+        }
+
+        .qr-code img {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            padding: 8px;
+        }
+
+        .qr-code p {
+            margin-top: 12px;
+            font-size: 14px;
+            color: var(--text-dark-20);
+        }
+
+        /* Trusted By Section */
+        .trusted-section {
+            padding: 64px 0;
+        }
+
+        .trusted-section .section-title {
+            font-size: 24px;
+            margin-bottom: 48px;
+        }
+
+        .logos-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+        }
+
+        .logo-item img {
+            max-width: 120px;
+            max-height: 40px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(200%);
+        }
+
+        /* Partners Section */
+        .partners-section {
+            padding: 64px 0;
+        }
+
+        .partners-section .section-title {
+            font-size: 24px;
+            margin-bottom: 48px;
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 24px;
+            align-items: center;
+        }
+
+        .partner-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            opacity: 0.4;
+            transition: opacity 0.3s;
+        }
+
+        .partner-item:hover {
+            opacity: 1;
+        }
+
+        .partner-item img {
+            max-width: 100px;
+            max-height: 32px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(200%);
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border-white);
+            padding: 48px 0 24px;
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 32px;
+            margin: 0 auto 24px;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .footer-social a {
+            color: var(--text-dark-40);
+            transition: color 0.3s;
+        }
+
+        .footer-social a:hover {
+            color: var(--text-white);
+        }
+
+        .footer-social svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-dark-60);
+            font-size: 14px;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-white);
+        }
+
+        .footer-disclaimer {
+            color: var(--text-dark-40);
+            font-size: 12px;
+            max-width: 600px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .footer-copyright {
+            color: var(--text-dark-60);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Decorative elements */
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56,227,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .nav {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .section-title {
+                font-size: 36px;
+            }
+
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .industries-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .app-content {
+                flex-direction: column;
+            }
+
+            .app-info {
+                text-align: center;
+            }
+
+            .app-buttons {
+                justify-content: center;
+            }
+
+            .logos-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .industries-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .logos-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .partners-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .offer-card {
+                padding: 32px;
+            }
+
+            .offer-card h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="/" class="nav-logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24'%3E%3Ctext x='0' y='18' font-family='Poppins,sans-serif' font-size='18' font-weight='700' fill='white'%3ENubila%3C/text%3E%3C/svg%3E" alt="Nubila">
+            </a>
+            <div class="nav-links">
+                <a href="/">
+                    Home
+                    <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </a>
+                <a href="/device">
+                    Device
+                    <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </a>
+                <a href="/data">
+                    Data
+                    <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </a>
+                <a href="/maps">
+                    Map
+                    <svg class="dropdown-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+                </a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="https://nubila.gitbook.io/nubila" target="_blank">Docs</a>
+            <a href="https://nubila.network" target="_blank" class="btn btn-primary">Explore Network</a>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation -->
+    <nav class="mobile-nav">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24'%3E%3Ctext x='0' y='18' font-family='Poppins,sans-serif' font-size='18' font-weight='700' fill='white'%3ENubila%3C/text%3E%3C/svg%3E" alt="Nubila">
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="/">Home</a>
+        <a href="/device">Device</a>
+        <a href="/data">Data</a>
+        <a href="/maps">Map</a>
+        <a href="https://nubila.gitbook.io/nubila" target="_blank">Docs</a>
+        <a href="https://nubila.network" target="_blank">Explore Network</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <h1>The <span class="gradient-text">Physical Data</span> Infrastructure for AI</h1>
+            <p>Building a decentralized network that transforms real-world signals into trusted, machine-readable intelligence</p>
+            <div class="hero-buttons">
+                <a href="https://play.google.com/store/apps/details?id=ai.nubila.weatherapp" target="_blank" class="btn btn-primary">Download App</a>
+                <a href="https://nubila.ai/device" class="btn btn-outline">Get a Weather Station</a>
+            </div>
+            <svg class="hero-illustration" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="heroGrad" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0%" stop-color="#38E3FF" stop-opacity="0.2"/>
+                        <stop offset="100%" stop-color="transparent"/>
+                    </radialGradient>
+                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#38E3FF" stop-opacity="0"/>
+                        <stop offset="50%" stop-color="#38E3FF" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#38E3FF" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <ellipse cx="450" cy="200" rx="400" ry="150" fill="url(#heroGrad)"/>
+                <circle cx="200" cy="150" r="50" fill="none" stroke="#38E3FF" stroke-width="1" opacity="0.3"/>
+                <circle cx="700" cy="250" r="70" fill="none" stroke="#38E3FF" stroke-width="1" opacity="0.2"/>
+                <circle cx="450" cy="200" r="100" fill="none" stroke="#38E3FF" stroke-width="1" opacity="0.4"/>
+                <circle cx="450" cy="200" r="150" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.2"/>
+                <circle cx="450" cy="200" r="200" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.1"/>
+                <line x1="100" y1="200" x2="800" y2="200" stroke="url(#lineGrad)" stroke-width="1"/>
+                <circle cx="200" cy="150" r="5" fill="#38E3FF" opacity="0.5"/>
+                <circle cx="700" cy="250" r="5" fill="#38E3FF" opacity="0.5"/>
+                <circle cx="450" cy="200" r="8" fill="#38E3FF" opacity="0.3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="section welcome-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Welcome to <span class="gradient-text">Nubila</span></h2>
+                <p class="section-desc">Nubila is building the Physical Data Infrastructure for AI. We decentralize the capture and validation of real-world physical signals—turning them into trusted, machine-readable intelligence that powers AI agents, prediction markets, financial systems, and global industries.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What We Offer Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">What We Offer</div>
+            </div>
+            <div class="offer-grid">
+                <div class="offer-card">
+                    <div class="offer-card-label">Real-Time, Hyperlocal Weather Data</div>
+                    <h3>Empower Trusted Weather Intelligence</h3>
+                    <p>Nubila's decentralized network delivers real-time, validated physical-world data — providing logistics, agriculture, energy, and financial trading with the precision insights they need to operate and optimize at scale.</p>
+                    <a href="/data" class="btn btn-secondary">Learn More</a>
+                </div>
+                <div class="offer-card">
+                    <div class="offer-card-label">Recording Our World</div>
+                    <h3>From Physical Signals to On-Chain Intelligence</h3>
+                    <p>Validator nodes transform real-world data into scalable oracle feeds, bridging the physical and digital economies.</p>
+                    <a href="https://nubila.gitbook.io/nubila/nubila-validator-node-interpretation" target="_blank" class="btn btn-secondary">Validation</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <circle cx="150" cy="90" r="40" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                        <circle cx="150" cy="90" r="25" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.3"/>
+                        <circle cx="150" cy="90" r="10" fill="#38E3FF" opacity="0.2"/>
+                    </svg>
+                    <h4>Universal Accessibility</h4>
+                    <p>Nubila's technology is designed to be accessible and beneficial for all, from individual users to large enterprises. Collect and share Real world data effortlessly to earn rewards, enhancing AI capabilities and driving innovation.</p>
+                </div>
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="50" y="40" width="80" height="60" rx="8" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                        <rect x="170" y="80" width="80" height="60" rx="8" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.3"/>
+                        <path d="M130 70 L170 110" stroke="#38E3FF" stroke-width="1" opacity="0.5"/>
+                    </svg>
+                    <h4>Seamless Data Integration</h4>
+                    <p>Say goodbye to fragmented and inconsistent data. Nubila breaks down barriers by providing seamless, real-time integration of AI-driven real world data across all platforms.</p>
+                </div>
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <circle cx="100" cy="70" r="20" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                        <circle cx="200" cy="70" r="20" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.3"/>
+                        <circle cx="150" cy="120" r="20" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.4"/>
+                    </svg>
+                    <h4>Collaborative Ecosystem</h4>
+                    <p>Our decentralized network ensures that all contributors benefit. Earn rewards by sharing real world data and joining our collaborative ecosystem.</p>
+                </div>
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <path d="M50 120 L100 80 L150 100 L200 60 L250 90" stroke="#38E3FF" stroke-width="2" fill="none" opacity="0.5"/>
+                        <circle cx="200" cy="60" r="4" fill="#38E3FF" opacity="0.5"/>
+                    </svg>
+                    <h4>Instant, Accurate Insights</h4>
+                    <p>Experience low latency and high precision with Nubila's advanced AI and decentralized technology. Gain actionable insights from real world data exactly when you need them.</p>
+                </div>
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <circle cx="150" cy="90" r="50" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.3"/>
+                        <path d="M150 50 L150 130 M110 90 L190 90" stroke="#38E3FF" stroke-width="1" opacity="0.5"/>
+                    </svg>
+                    <h4>Open Data Access</h4>
+                    <p>Access to critical real world data should be open and unrestricted. Nubila democratizes data access, empowering all users with essential information.</p>
+                </div>
+                <div class="feature-card">
+                    <svg width="100%" height="180" viewBox="0 0 300 180" fill="none">
+                        <rect width="300" height="180" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="80" y="40" width="140" height="100" rx="12" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                        <circle cx="150" cy="90" r="20" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.3"/>
+                    </svg>
+                    <h4>Decentralized Security</h4>
+                    <p>Your data is secured by blockchain technology, ensuring transparency, immutability, and trust in every transaction and data point.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ecosystem Section -->
+    <section class="section ecosystem-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">The Nubila Ecosystem</div>
+                <h2 class="section-title">Nubila Real-World <span class="gradient-text">Data Oracle</span></h2>
+                <p class="section-desc">The core of Nubila's Physical Perception Layer — transforming ground-truth signals into machine-readable intelligence for on-chain and off-chain applications.</p>
+            </div>
+            <div class="ecosystem-grid">
+                <div class="ecosystem-card">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <rect x="20" y="20" width="40" height="40" rx="8" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="40" r="12" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                        <circle cx="40" cy="40" r="4" fill="#38E3FF" opacity="0.3"/>
+                    </svg>
+                    <h4>Marco</h4>
+                    <p>Collects hyperlocal weather and environmental data, contributing to Nubila's RWA Data Oracle and the broader Real World Data network.</p>
+                </div>
+                <div class="ecosystem-card">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <rect x="15" y="15" width="50" height="50" rx="8" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <path d="M28 40 L36 48 L52 32" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h4>Validation</h4>
+                    <p>Secure and validate data packages, anchoring them on-chain to ensure accuracy, transparency, and settlement-grade reliability.</p>
+                </div>
+                <div class="ecosystem-card">
+                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+                        <polygon points="40,10 70,65 10,65" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="50" r="10" stroke="#38E3FF" stroke-width="1" fill="none" opacity="0.5"/>
+                    </svg>
+                    <h4>Oracle</h4>
+                    <p>Delivers trusted, validated data to AI systems, financial markets, and global enterprises in real-time.</p>
+                </div>
+            </div>
+            <p class="ecosystem-description">The Nubila ecosystem integrates Marco, Validation, and the Oracle into a unified flywheel: stations collect → nodes validate → oracle delivers. This infrastructure powers real-time intelligence for AI models, financial markets, and global enterprises.</p>
+        </div>
+    </section>
+
+    <!-- Key Industries Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-label">Key Industries</div>
+                <h2 class="section-title">Powering <span class="gradient-text">Global Industries</span></h2>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 4L4 24h6v16h28V24h6L24 4z" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <path d="M20 28l4 4 8-8" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h4>Energy</h4>
+                    <p>Forecast renewable energy outputs and plan energy distribution with precision.</p>
+                </div>
+                <div class="industry-card">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <rect x="8" y="8" width="32" height="32" rx="4" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <path d="M16 24h16M24 16v16" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h4>Finance & Insurance</h4>
+                    <p>Assess risks and process claims efficiently with accurate data.</p>
+                </div>
+                <div class="industry-card">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <circle cx="24" cy="24" r="18" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                        <path d="M24 12v12l8 4" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h4>Prediction Markets</h4>
+                    <p>Improve forecasting accuracy and market efficiency with real-world, validated physical intelligence.</p>
+                </div>
+                <div class="industry-card">
+                    <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                        <path d="M24 40V20M24 20c0-8 6-14 14-14 0 8-6 14-14 14zM24 28c0-6-4-10-10-10 0 6 4 10 10 10z" stroke="#38E3FF" stroke-width="2" fill="none"/>
+                    </svg>
+                    <h4>Agriculture</h4>
+                    <p>Optimize resources and increase yields using real-time environmental data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Download Section -->
+    <section class="section app-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Download The <span class="gradient-text">Nubila App</span></h2>
+                <p class="section-desc">View your weather station's data, keep track of your rewards and access the entire Nubila network.</p>
+            </div>
+            <div class="app-content">
+                <div class="app-info">
+                    <h3>Your Data, Anywhere</h3>
+                    <p>Monitor your weather stations, track earnings, and explore the Nubila ecosystem — all from your pocket.</p>
+                    <div class="app-buttons">
+                        <a href="https://apps.apple.com/us/app/nubila/id6736720461" target="_blank" class="btn btn-primary">App Store</a>
+                        <a href="https://play.google.com/store/apps/details?id=ai.nubila.weatherapp" target="_blank" class="btn btn-outline">Google Play</a>
+                    </div>
+                </div>
+                <div class="app-preview">
+                    <svg width="280" height="560" viewBox="0 0 280 560" fill="none">
+                        <rect x="10" y="10" width="260" height="540" rx="32" fill="#252525" stroke="#38E3FF" stroke-width="1" opacity="0.5"/>
+                        <rect x="100" y="25" width="80" height="16" rx="8" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="30" y="70" width="220" height="120" rx="16" fill="rgba(56,227,255,0.1)"/>
+                        <text x="140" y="120" text-anchor="middle" fill="#38E3FF" font-size="14" font-weight="600">Weather Data</text>
+                        <text x="140" y="145" text-anchor="middle" fill="white" font-size="24" font-weight="700">24.5°C</text>
+                        <rect x="30" y="210" width="100" height="80" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="150" y="210" width="100" height="80" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="30" y="310" width="100" height="80" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="150" y="310" width="100" height="80" rx="12" fill="rgba(56,227,255,0.05)"/>
+                        <rect x="30" y="420" width="220" height="100" rx="16" fill="rgba(56,227,255,0.08)"/>
+                        <text x="140" y="460" text-anchor="middle" fill="#38E3FF" font-size="12" font-weight="600">Total Rewards</text>
+                        <text x="140" y="490" text-anchor="middle" fill="white" font-size="20" font-weight="700">128.5 $NB</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="qr-codes">
+                <div class="qr-code">
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                        <rect width="120" height="120" rx="12" fill="#252525"/>
+                        <rect x="15" y="15" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="75" y="15" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="15" y="75" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="20" y="20" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="80" y="20" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="20" y="80" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="55" y="15" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="35" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="15" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="35" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                    </svg>
+                    <p>iOS App</p>
+                </div>
+                <div class="qr-code">
+                    <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+                        <rect width="120" height="120" rx="12" fill="#252525"/>
+                        <rect x="15" y="15" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="75" y="15" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="15" y="75" width="30" height="30" rx="4" fill="none" stroke="#38E3FF" stroke-width="2"/>
+                        <rect x="20" y="20" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="80" y="20" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="20" y="80" width="20" height="20" rx="2" fill="#38E3FF" opacity="0.3"/>
+                        <rect x="55" y="15" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="35" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="15" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="35" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="55" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="75" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="55" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="75" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                        <rect x="95" y="95" width="10" height="10" fill="#38E3FF" opacity="0.2"/>
+                    </svg>
+                    <p>Android App</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="section trusted-section">
+        <div class="container">
+            <h2 class="section-title">Trusted by</h2>
+            <div class="logos-grid">
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">LOTEX</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">VeChain</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">Block</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">MH</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">SynHarbour</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">Quantum</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">Assembly</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">OrangeDAO</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">ByteTrade</text>
+                    </svg>
+                </div>
+                <div class="logo-item">
+                    <svg width="120" height="40" viewBox="0 0 120 40" fill="none">
+                        <text x="60" y="25" text-anchor="middle" fill="white" font-size="14" font-weight="600" opacity="0.5">SNZ</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section -->
+    <section class="section partners-section">
+        <div class="container">
+            <h2 class="section-title">Our Partners</h2>
+            <div class="partners-grid">
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 1</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 2</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 3</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 4</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 5</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 6</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 7</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 8</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 9</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 10</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 11</text></svg></div>
+                <div class="partner-item"><svg width="100" height="32" viewBox="0 0 100 32"><text x="50" y="20" text-anchor="middle" fill="white" font-size="10" opacity="0.4">Partner 12</text></svg></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 24'%3E%3Ctext x='0' y='18' font-family='Poppins,sans-serif' font-size='18' font-weight='700' fill='white'%3ENubila%3C/text%3E%3C/svg%3E" alt="Nubila">
+            </div>
+            <div class="footer-social">
+                <a href="https://x.com/nubilanetwork" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <svg viewBox="0 0 512 512" fill="currentColor"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+                </a>
+                <a href="https://discord.com/invite/nubila" target="_blank" rel="noopener noreferrer" aria-label="Discord">
+                    <svg viewBox="0 0 640 512" fill="currentColor"><path d="M524.531,69.836a1.5,1.5,0,0,0-.764-.7A485.065,485.065,0,0,0,404.081,32.03a1.816,1.816,0,0,0-1.923.91,337.461,337.461,0,0,0-14.9,30.6,447.848,447.848,0,0,0-134.426,0,309.541,309.541,0,0,0-15.135-30.6,1.89,1.89,0,0,0-1.924-.91A483.689,483.689,0,0,0,116.085,69.137a1.712,1.712,0,0,0-.788.676C39.068,183.651,18.186,294.69,28.43,404.354a2.016,2.016,0,0,0,.765,1.375A487.666,487.666,0,0,0,176.02,479.918a1.9,1.9,0,0,0,2.063-.676A348.2,348.2,0,0,0,208.12,430.4a1.86,1.86,0,0,0-1.019-2.588,321.173,321.173,0,0,1-45.868-21.853,1.885,1.885,0,0,1-.185-3.126c3.082-2.309,6.166-4.711,9.109-7.137a1.819,1.819,0,0,1,1.9-.256c96.229,43.917,200.41,43.917,295.5,0a1.812,1.812,0,0,1,1.924.233c2.944,2.426,6.027,4.851,9.132,7.16a1.884,1.884,0,0,1-.162,3.126,301.407,301.407,0,0,1-45.89,21.83,1.875,1.875,0,0,0-1,2.611,391.055,391.055,0,0,0,30.014,48.815,1.864,1.864,0,0,0,2.063.7A486.048,486.048,0,0,0,610.7,405.729a1.882,1.882,0,0,0,.765-1.352C623.729,277.594,590.933,167.465,524.531,69.836ZM222.491,337.58c-28.972,0-52.844-26.587-52.844-59.239S193.056,219.1,222.491,219.1c29.665,0,53.306,26.82,52.843,59.239C275.334,310.993,251.924,337.58,222.491,337.58Zm195.38,0c-28.971,0-52.843-26.587-52.843-59.239S388.437,219.1,417.871,219.1c29.667,0,53.307,26.82,52.844,59.239C470.715,310.993,447.538,337.58,417.871,337.58Z"/></svg>
+                </a>
+                <a href="https://apps.apple.com/us/app/nubila/id6736720461" target="_blank" rel="noopener noreferrer" aria-label="App Store">
+                    <svg viewBox="0 0 512 512" fill="currentColor"><path d="M255.9 120.9l9.1-15.7c5.6-9.8 18.1-13.1 27.9-7.5 9.8 5.6 13.1 18.1 7.5 27.9l-87.5 151.5h63.3c20.5 0 32 24.1 23.1 40.8H113.8c-11.3 0-20.4-9.1-20.4-20.4 0-11.3 9.1-20.4 20.4-20.4h52l66.6-115.4-20.8-36.1c-5.6-9.8-2.3-22.2 7.5-27.9 9.8-5.6 22.2-2.3 27.9 7.5l8.9 15.7zm-78.7 218l-19.6 34c-5.6 9.8-18.1 13.1-27.9 7.5-9.8-5.6-13.1-18.1-7.5-27.9l14.6-25.2c16.4-5.1 29.8-1.2 40.4 11.6zm168.9-61.7h53.1c11.3 0 20.4 9.1 20.4 20.4 0 11.3-9.1 20.4-20.4 20.4h-29.5l19.9 34.5c5.6 9.8 2.3 22.2-7.5 27.9-9.8 5.6-22.2 2.3-27.9-7.5-33.5-58.1-58.7-101.6-75.4-130.6-17.1-29.5-4.9-59.1 7.2-69.1 13.4 23 33.4 57.7 60.1 104zM256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm216 248c0 118.7-96.1 216-216 216-118.7 0-216-96.1-216-216 0-118.7 96.1-216 216-216 118.7 0 216 96.1 216 216z"/></svg>
+                </a>
+                <a href="https://play.google.com/store/apps/details?id=ai.nubila.weatherapp" target="_blank" rel="noopener noreferrer" aria-label="Google Play">
+                    <svg viewBox="0 0 512 512" fill="currentColor"><path d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"/></svg>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="https://t.ly/E9pQg" target="_blank">Our Media Kit</a>
+                <a href="/legal#terms-of-service">Terms of Service</a>
+                <a href="/legal#privacy-policy">Privacy Policy</a>
+                <a href="/legal#cookie-policy">Cookie Policy</a>
+                <a href="/legal#data-disclaimer">Data Disclaimer</a>
+            </div>
+            <p class="footer-disclaimer">*Nubila provides data infrastructure services and does not offer investment advice, securities, or financial products.</p>
+            <p class="footer-copyright">&copy; 2026 Butterflyx Inc - All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        hamburger.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+</html>
