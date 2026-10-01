@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aether: Fuel the Physical Data Economy</title>
+    <title>Nubila: Fuel the MachineFi Revolution</title>
     <meta name="description" content="Validator Nodes aren't just infrastructure—they're the beating heart of the network. Be part of the movement building a real-time hyperlocal weather data oracle.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&display=swap" rel="stylesheet">
     <style>
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Medium.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-SemiBold.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Bold.ttf') format('truetype'); font-weight: 700; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-ExtraBold.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-SemiBoldItalic.ttf') format('truetype'); font-weight: 600; font-style: italic; font-display: swap; }
+        @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-ExtraBoldItalic.ttf') format('truetype'); font-weight: 800; font-style: italic; font-display: swap; }
         :root {
             --bg-dark: #1E1E1E;
             --bg-card: #252525;
@@ -38,283 +43,864 @@
             color: var(--text-white);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Subtle noise / pattern overlay like reference bg-blend-overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
             background-image:
                 radial-gradient(ellipse 800px 600px at 20% 10%, rgba(56,227,255,0.04) 0%, transparent 60%),
                 radial-gradient(ellipse 600px 400px at 80% 30%, rgba(56,227,255,0.03) 0%, transparent 60%),
                 radial-gradient(ellipse 1000px 800px at 50% 70%, rgba(56,227,255,0.02) 0%, transparent 60%);
         }
 
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0.5;
+            mix-blend-mode: overlay;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+
+        .main-wrap {
+            position: relative;
+            z-index: 5;
+            overflow: hidden;
+        }
+
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-        /* Navigation */
+        /* ===========================
+           Button classes — reference style (pill shape, 32px radius)
+           =========================== */
+        .button {
+            padding: 14px 32px;
+            border-radius: 32px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            white-space: nowrap;
+            position: relative;
+            line-height: 1.2;
+        }
+        .button.primary,
+        .primary.button,
+        .button.shadow-button {
+            background: var(--gradient-btn);
+            color: #FFFFFF;
+            box-shadow: 0 4px 20px rgba(56,227,255,0.3);
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+        .button.shadow-button:hover,
+        .button.primary:hover,
+        .primary.button:hover {
+            box-shadow: 0 6px 30px rgba(56,227,255,0.5);
+            transform: translateY(-1px);
+        }
+        .button.secondary.light,
+        .button.secondary {
+            background: transparent;
+            color: #FFFFFF;
+            border: 2px solid rgba(255,255,255,0.7);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        .button.secondary.light:hover,
+        .button.secondary:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.9);
+            color: #FFFFFF;
+        }
+
+        /* ===========================
+           Navigation — reference style
+           =========================== */
         .nav {
-            position: fixed; top: 24px; left: 50%;
-            transform: translateX(-50%);
-            width: auto; padding: 0;
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000000; gap: 24px;
+            position: fixed;
+            top: 24px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 0 24px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000000;
+        }
+        @media (min-width: 1280px) {
+            .nav { display: flex; }
         }
         .nav-links {
-            display: flex; gap: 4px; padding: 8px 16px;
-            background: rgba(30,30,30,0.7); border-radius: 12px;
-            border: 1px solid rgba(56,227,255,0.2);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            gap: 24px;
+            padding: 14px 32px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            border: 1px solid rgba(56,227,255,0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
-        .nav-links a {
-            color: var(--text-dark-20); text-decoration: none;
-            font-weight: 500; font-size: 13px; cursor: pointer;
-            transition: color 0.3s; padding: 8px 14px;
-            border-radius: 8px; white-space: nowrap;
+        .nav-links .nav-link {
+            color: #FFFFFF;
+            font-size: 16px;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 2px 0;
+            position: relative;
+            white-space: nowrap;
+            font-weight: 400;
         }
-        .nav-links a:hover { color: var(--tint-blue); background: rgba(56,227,255,0.08); }
-        .nav-links a.active { color: var(--tint-blue); position: relative; }
-        .nav-links a.active::after {
-            content: ''; position: absolute; left: 14px; right: 14px; bottom: 2px;
-            height: 2px; background: var(--gradient-btn); border-radius: 1px;
+        .nav-links .nav-link:hover { color: var(--tint-blue-light); }
+        .nav-links .nav-link.active {
+            color: var(--tint-blue);
+            font-weight: 700;
         }
-        .nav-buttons { display: flex; gap: 12px; align-items: center; }
-
-        .btn {
-            padding: 10px 24px; border-radius: 8px;
-            font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 600;
-            cursor: pointer; transition: all 0.3s; text-decoration: none;
-            display: inline-block; border: none; white-space: nowrap;
+        .nav-links .nav-link.active::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            right: 6px;
+            bottom: -14px;
+            height: 4px;
+            background: linear-gradient(90deg, #DFFBFF, #38E3FF);
+            border-radius: 2px;
+            width: calc(100% - 12px);
         }
-        .btn-primary {
-            background: var(--gradient-btn); color: var(--bg-dark);
-            box-shadow: 0 4px 20px rgba(56,227,255,0.25);
-        }
-        .btn-primary:hover { box-shadow: 0 6px 30px rgba(56,227,255,0.4); transform: translateY(-1px); }
-        .btn-secondary {
-            background: rgba(30,30,30,0.7); color: var(--tint-blue);
-            border: 1px solid rgba(56,227,255,0.3); backdrop-filter: blur(10px);
-        }
-        .btn-secondary:hover { background: rgba(56,227,255,0.1); border-color: rgba(56,227,255,0.5); }
+        .nav-buttons { display: flex; gap: 24px; align-items: center; }
+        .nav-buttons .button + .button { margin-left: 0; }
 
         /* Mobile nav */
         .mobile-nav {
-            display: none; position: fixed; top: 0; left: 0; width: 100%;
-            padding: 16px 20px; z-index: 1000000;
-            background: rgba(30,30,30,0.95); backdrop-filter: blur(20px);
-            justify-content: space-between; align-items: center;
-            border-bottom: 1px solid rgba(56,227,255,0.15);
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 16px 20px;
+            z-index: 1000000;
+            background: rgba(30,30,30,0.98);
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: none;
         }
-        .mobile-nav img { height: 22px; }
-        .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
-        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-white); border-radius: 2px; transition: all 0.3s; }
+        .mobile-nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            mix-blend-mode: overlay;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+        .mobile-nav::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            z-index: 0;
+            background: linear-gradient(180deg, rgba(56,227,255,0.6), rgba(255,255,255,0));
+        }
+        .mobile-nav img { height: 24px; position: relative; z-index: 1; }
+        @media (min-width: 1280px) {
+            .mobile-nav { display: none; }
+        }
+        .hamburger { display: flex; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; position: relative; z-index: 1000001; }
+        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text-white); border-radius: 2px; transition: all 0.3s ease !important; transform-origin: center !important; position: relative; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg) !important; }
+        .hamburger.open span:nth-child(2) { opacity: 0 !important; transform: scaleX(0) !important; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg) !important; }
+        body.mobile-menu-open { overflow: hidden; }
         .mobile-menu {
-            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(30,30,30,0.98); backdrop-filter: blur(20px); z-index: 1000;
-            flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(30,30,30,0.98);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+        }
+        .mobile-menu::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.5;
+            mix-blend-mode: overlay;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 4px 4px;
         }
         .mobile-menu.open { display: flex; }
-        .mobile-menu a { color: var(--text-white); text-decoration: none; font-size: 18px; font-weight: 500; }
-        .mobile-menu .btn { font-size: 14px; padding: 12px 28px; }
+        .mobile-menu .button,
+        .mobile-menu .nav-link { position: relative; z-index: 2; }
+        .mobile-menu .nav-link { color: var(--text-white); font-size: 18px; font-weight: 500; cursor: pointer; }
+        .mobile-menu .button { font-size: 14px; padding: 12px 28px; }
 
-        /* Hero Section */
-        .hero { padding-top: 160px; text-align: center; position: relative; }
+        /* ===========================
+           Hero Section — reference style
+           =========================== */
+        .hero {
+            padding-top: 128px;
+            text-align: center;
+            position: relative;
+        }
         .hero::before {
-            content: ''; position: absolute; top: 100px; left: 50%; transform: translateX(-50%);
-            width: 800px; height: 600px;
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 600px;
             background: radial-gradient(ellipse, rgba(56,227,255,0.08) 0%, transparent 70%);
             pointer-events: none;
         }
-        .hero-logo { height: 32px; margin: 0 auto; opacity: 0.9; }
-        .hero h1 { font-size: 80px; font-weight: 300; margin-top: 40px; line-height: 1.05; letter-spacing: -1px; }
-        .gradient-text {
-            background: var(--gradient-text); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600;
+        .hero-logo { height: 36px; margin: 0 auto; opacity: 0.9; }
+        @media (min-width: 640px) {
+            .hero-logo { height: 64px; }
         }
-        .hero h6 { font-size: 22px; color: var(--text-dark-20); margin-top: 28px; font-weight: 400; letter-spacing: 0.2px; }
-        .hero p { margin-top: 56px; color: #B0F4FF; font-size: 15px; font-weight: 400; letter-spacing: 0.3px; }
-        .hero-buttons { display: flex; gap: 14px; margin-top: 28px; align-items: center; justify-content: center; }
-        .hero-illustration { width: 100%; margin-top: 80px; max-width: 900px; position: relative; }
-        .hero-description { max-width: 580px; margin: 56px auto 0; text-align: left; }
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 300;
+            margin-top: 32px;
+            line-height: 1.05;
+            letter-spacing: -0.5px;
+        }
+        @media (min-width: 640px) {
+            .hero h1 { font-size: 80px; letter-spacing: -1px; }
+        }
+        .gradient-text {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            filter: drop-shadow(0 2px 12px rgba(56,227,255,0.15));
+        }
+        .hero h6 {
+            font-size: 18px;
+            color: #B8C2D3;
+            margin-top: 24px;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+        @media (min-width: 640px) {
+            .hero h6 { font-size: 24px; }
+        }
+        .hero p.hero-tagline {
+            margin-top: 48px;
+            color: #7AF2FF;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        @media (min-width: 640px) {
+            .hero p.hero-tagline { font-size: 18px; }
+        }
+        .hero-buttons { display: flex; gap: 20px; margin-top: 32px; align-items: center; justify-content: center; flex-wrap: wrap; }
+        .hero-buttons .button { padding: 16px 40px; font-size: 16px; }
+        .hero-illustration {
+            display: block;
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            margin: 72px auto 0;
+        }
+        .videoMask {
+            -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            border-radius: 8px 8px 0 0;
+        }
+        .hero-description { max-width: 600px; margin: 48px auto 0; text-align: left; }
+        .hero-description p.one-network { color: var(--text-white); font-size: 15px; margin-top: 0; line-height: 1.7; font-weight: 700; }
         .hero-description p { color: var(--text-white); font-size: 15px; margin-top: 8px; line-height: 1.7; }
-        .hero-description p:first-child { font-weight: 600; margin-top: 0; font-size: 16px; }
-        .hero-description .btn { margin-top: 28px; margin-bottom: 80px; }
+        .hero-description .button { margin-top: 24px; margin-bottom: 64px; position: relative; z-index: 10; }
 
         /* Divider */
-        .divider { width: 100%; height: 1px; background: var(--gradient-line); opacity: 0.35; }
+        .divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #38E3FF 50%, rgba(255,255,255,0) 100%);
+            opacity: 0.4;
+        }
 
-        /* Section Styles */
-        .section { padding-top: 80px; position: relative; }
-        .section-header { margin-bottom: 56px; }
+        /* ===========================
+           Section Styles — reference style
+           =========================== */
+        .section { padding-top: 64px; position: relative; }
         .section-bg-title {
-            font-size: 72px; font-weight: 700;
-            background: var(--gradient-text); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
-            opacity: 0.08; line-height: 72px; height: 72px; letter-spacing: -1px;
+            font-size: 28px;
+            font-weight: 700;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0.1;
+            line-height: 64px;
+            height: 64px;
+            letter-spacing: -0.5px;
+            filter: drop-shadow(0 2px 12px rgba(56,227,255,0.15));
         }
-        .section-title { font-size: 30px; font-weight: 600; color: var(--text-white); letter-spacing: -0.3px; }
-        .section-desc { color: var(--text-dark-20); max-width: 580px; margin-top: 24px; font-size: 15px; line-height: 1.7; }
+        @media (min-width: 640px) {
+            .section-bg-title {
+                font-size: 64px;
+                line-height: 64px;
+                height: 64px;
+                letter-spacing: -1px;
+            }
+        }
+        .section-title { font-size: 26px; font-weight: 700; color: var(--text-white); letter-spacing: -0.3px; margin-top: 0; }
+        @media (min-width: 640px) {
+            .section-title { font-size: 30px; }
+        }
+        .section-desc { color: var(--text-dark-20); max-width: 600px; margin-top: 32px; font-size: 15px; line-height: 1.7; }
 
-        /* ============================================
-           Ecosystem Section — sticky left + scrolling cards
-           ============================================ */
+        /* ===========================
+           Ecosystem Section — reference layout
+           =========================== */
         .ecosystem-layout {
-            display: grid;
-            grid-template-columns: 0.85fr 1.15fr;
-            gap: 64px;
+            display: block;
             align-items: start;
+            margin-bottom: 64px;
         }
-        .ecosystem-intro { position: sticky; top: 140px; align-self: start; }
-        .ecosystem-progress { display: flex; gap: 10px; margin-top: 40px; }
-        .ep-dot {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: rgba(255,255,255,0.15); transition: all 0.35s ease;
+        @media (min-width: 640px) {
+            .ecosystem-layout { display: flex; }
         }
-        .ep-dot.active {
-            width: 28px; border-radius: 4px; background: var(--tint-blue);
-            box-shadow: 0 0 12px rgba(56,227,255,0.6);
+        .ecosystem-intro {
+            flex-shrink: 0;
+            position: static;
+            align-self: start;
         }
-        .ecosystem-cards { display: flex; flex-direction: column; gap: 40px; }
-        .ecosystem-card {
-            position: relative; padding-left: 96px;
-            opacity: 0; transform: translateY(48px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+        @media (min-width: 640px) {
+            .ecosystem-intro {
+                width: 600px;
+                max-width: 600px;
+                margin-right: 64px;
+                position: sticky;
+                top: 64px;
+            }
         }
-        .ecosystem-card.in-view { opacity: 1; transform: translateY(0); }
+        .ecosystem-intro .section-desc { margin-bottom: 32px; }
+
+        /* Remove old progress dots */
+        .ecosystem-progress { display: none; }
+
+        .ecosystem-cards {
+            display: grid;
+            gap: 32px;
+        }
+        @media (min-width: 640px) {
+            .ecosystem-cards {
+                padding-top: 64px;
+                flex-grow: 0;
+                width: 100%;
+            }
+        }
+        .ecosystem-card-wrap {
+            display: flex;
+            width: 100%;
+        }
         .ecosystem-number {
-            position: absolute; left: 0; top: 8px; width: 80px; text-align: center;
-            font-size: 110px; font-weight: 800; font-style: italic; line-height: 1;
-            letter-spacing: -2px;
-            background: var(--gradient-text); -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent; background-clip: text;
-            opacity: 0.09; transition: opacity 0.4s ease;
+            display: none;
+            font-size: 96px;
+            line-height: 96px;
+            margin-top: 16px;
+            font-weight: 900;
+            font-style: italic;
+            margin-right: 32px;
+            opacity: 0.1;
+            width: 64px;
+            text-align: right;
+            flex-shrink: 0;
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        @media (min-width: 640px) {
+            .ecosystem-number { display: block; }
+        }
+        .ecosystem-card {
+            position: relative;
+            opacity: 1;
+            transform: none;
+            transition: opacity 0.7s ease, transform 0.7s ease;
+            width: 100%;
         }
         .ecosystem-card-inner {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 20px; padding: 36px;
-            display: flex; flex-direction: row; align-items: center; gap: 24px;
-            min-height: 300px; backdrop-filter: blur(10px); transition: all 0.4s ease;
+            min-height: auto;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            width: 100%;
         }
-        .ecosystem-card.active .ecosystem-card-inner {
-            border-color: rgba(56,227,255,0.35); background: rgba(56,227,255,0.05);
-            box-shadow: var(--glow-cyan); transform: translateY(-4px);
+        @media (min-width: 640px) {
+            .ecosystem-card-inner {
+                flex-direction: row;
+            }
         }
-        .ecosystem-card.active .ecosystem-number { opacity: 0.28; }
+        /* homeCard base class (used by ecosystem + why us cards) */
+        .homeCard {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
+            padding: 24px;
+            padding-bottom: 48px;
+        }
+        .homeCard.highlight {
+            border-color: rgba(56,227,255,0.2);
+            background: rgba(56,227,255,0.04);
+        }
+        .homeCard.highlight:hover,
+        .homeCard:hover {
+            border-color: rgba(56,227,255,0.35);
+            box-shadow: 0 8px 40px rgba(56,227,255,0.08);
+            transform: translateY(-2px);
+        }
         .ecosystem-card-content { flex: 1; }
-        .ecosystem-card-content h6 { font-size: 24px; color: var(--text-white); margin-bottom: 12px; font-weight: 600; }
-        .ecosystem-card-content p { color: var(--text-dark-20); font-size: 14px; line-height: 1.7; }
-        .ecosystem-card-content .btn { margin-top: 28px; }
-        .ecosystem-card-inner > svg { flex-shrink: 0; }
-
-        /* Why Us Section */
-        .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 20px; }
-        .why-card {
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-            border-radius: 16px; padding: 24px; transition: all 0.3s;
+        @media (min-width: 640px) {
+            .ecosystem-card-content { margin-right: 24px; }
         }
-        .why-card:hover { border-color: rgba(56,227,255,0.15); background: rgba(255,255,255,0.04); }
-        .why-card.highlight { border-color: rgba(56,227,255,0.2); background: rgba(56,227,255,0.04); }
-        .why-card img { width: 56px; height: 56px; }
-        .why-card h6 { font-size: 20px; color: var(--tint-blue); margin-top: 16px; font-weight: 600; }
-        .why-card p { color: var(--text-dark-20); margin-top: 12px; font-size: 14px; line-height: 1.7; }
-        .why-subtitle { color: var(--text-dark-0); max-width: 580px; margin-top: 40px; margin-bottom: 16px; font-weight: 600; font-size: 18px; }
+        .ecosystem-card-content h6 { font-size: 22px; color: var(--text-white); margin-bottom: 12px; font-weight: 600; }
+        @media (min-width: 640px) {
+            .ecosystem-card-content h6 { font-size: 24px; }
+        }
+        .ecosystem-card-content p { color: var(--text-dark-20); font-size: 15px; line-height: 1.7; margin-top: 16px; }
+        .ecosystem-card-content .button { margin-top: 48px; }
+        @media (max-width: 640px) {
+            .ecosystem-card-content { text-align: center; margin-top: 24px; }
+        }
+        .ecosystem-card-img {
+            flex-shrink: 0;
+            width: 200px;
+            height: auto;
+            object-fit: contain;
+        }
 
-        /* Why Join Us */
-        .whyjoinus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .whyjoinus-item { display: flex; gap: 20px; align-items: flex-start; }
-        .whyjoinus-item img { width: 56px; height: 56px; flex-shrink: 0; }
-        .whyjoinus-item h6 { font-size: 15px; font-weight: 600; color: var(--text-white); }
-        .whyjoinus-item p { font-size: 14px; color: var(--text-dark-20); margin-top: 6px; line-height: 1.7; }
-        .quote-section { display: flex; justify-content: center; margin-top: 72px; margin-bottom: 80px; }
-        .quote { font-size: 28px; font-weight: 600; text-align: center; position: relative; max-width: calc(100% - 100px); line-height: 1.5; }
-        .quote .quote-icon { position: absolute; width: 18px; height: auto; opacity: 0.4; }
-        .quote .quote-left { top: -4px; left: -48px; }
-        .quote .quote-right { bottom: -8px; right: -44px; }
+        /* ===========================
+           Why Us Section
+           =========================== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 0;
+        }
+        @media (min-width: 640px) {
+            .why-grid { grid-template-columns: repeat(3, 1fr); gap: 0 24px; }
+        }
+        .why-card img { width: 64px; height: 64px; }
+        .why-card h6 { font-size: 22px; color: var(--tint-blue); margin-top: 16px; font-weight: 700; }
+        @media (min-width: 640px) {
+            .why-card h6 { font-size: 24px; }
+        }
+        .why-card p { color: var(--text-dark-20); margin-top: 16px; font-size: 15px; line-height: 1.7; margin-bottom: 16px; }
+        .why-subtitle {
+            color: var(--text-dark-0);
+            max-width: 600px;
+            margin-top: 48px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: 20px;
+        }
 
-        /* Contributor Section */
+        /* ===========================
+           Why Join Us
+           =========================== */
+        .whyjoinus-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+        }
+        @media (min-width: 640px) {
+            .whyjoinus-grid { grid-template-columns: repeat(3, 1fr); gap: 48px; }
+        }
+        .whyjoinus-item { display: flex; gap: 0; align-items: flex-start; }
+        .whyjoinus-item img { width: 64px; height: 64px; margin-right: 24px; flex-shrink: 0; flex-grow: 0; }
+        .whyjoinus-item h6 { font-size: 15px; font-weight: 700; color: var(--text-white); }
+        .whyjoinus-item p { font-size: 15px; color: var(--text-dark-20); margin-top: 8px; line-height: 1.7; }
+        .quote-section { display: flex; justify-content: center; margin-top: 64px; margin-bottom: 72px; }
+        .quote {
+            font-size: 22px;
+            font-weight: 700;
+            text-align: left;
+            position: relative;
+            display: inline;
+            max-width: calc(100% - 100px);
+            line-height: 1.5;
+        }
+        @media (min-width: 640px) {
+            .quote { font-size: 30px; }
+        }
+        .quote .quote-icon {
+            position: absolute;
+            width: auto;
+            height: 12px;
+            opacity: 0.4;
+        }
+        @media (min-width: 640px) {
+            .quote .quote-icon { height: 19px; }
+        }
+        .quote .quote-left { top: -24px; left: 0; }
+        @media (min-width: 640px) {
+            .quote .quote-left { top: 0; left: -51px; }
+        }
+        .quote .quote-right { right: 0; bottom: -24px; }
+        @media (min-width: 640px) {
+            .quote .quote-right { right: -48px; bottom: -12px; }
+        }
+
+        /* ===========================
+           Contributor Section
+           =========================== */
         .contributor-section { text-align: center; }
-        .contributor-section img { width: 100%; max-width: 560px; height: auto; margin: 28px auto; }
-        .contributor-section > p { color: var(--text-dark-20); font-size: 15px; margin-top: 40px; }
-        .contributor-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 40px; margin-bottom: 72px; text-align: left; }
+        .contributor-section img.contributor-img {
+            display: block;
+            width: 100%;
+            max-width: 560px;
+            height: auto;
+            margin: 32px auto;
+        }
+        @media (min-width: 640px) {
+            .contributor-section img.contributor-img {
+                width: auto;
+                height: 210px;
+                max-width: none;
+            }
+        }
+        .contributor-section > p { color: var(--text-dark-20); font-size: 15px; margin-top: 48px; }
+        .contributor-features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 36px;
+            margin-top: 48px;
+            margin-bottom: 64px;
+            text-align: left;
+        }
+        @media (min-width: 640px) {
+            .contributor-features { grid-template-columns: repeat(3, 1fr); gap: 36px; }
+        }
         .contributor-feature h6 { font-size: 22px; color: var(--text-white); margin-bottom: 12px; font-weight: 600; }
-        .contributor-feature .feature-line { width: 100%; height: 1px; background: linear-gradient(90deg, #38E3FF, rgba(255,255,255,0)); }
-        .contributor-feature p { color: var(--text-dark-20); margin-top: 20px; font-size: 14px; line-height: 1.7; }
+        @media (min-width: 640px) {
+            .contributor-feature h6 { font-size: 24px; }
+        }
+        .contributor-feature .feature-line {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, #38E3FF, rgba(255,255,255,0));
+        }
+        .contributor-feature p { color: var(--text-dark-20); margin-top: 24px; font-size: 15px; line-height: 1.7; }
 
-        /* Steps Section */
-        .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; margin-bottom: 32px; }
+        /* ===========================
+           Steps Section — reference style
+           =========================== */
+        .steps-grid {
+            display: none;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-top: 48px;
+            margin-bottom: 36px;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .steps-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0 24px;
+            }
+        }
+        .shadow-steps {
+            box-shadow: 0 8px 40px rgba(56,227,255,0.06);
+        }
         .step-card {
-            background: rgba(255,255,255,0.04); padding: 24px; border-radius: 24px;
-            border: 1px solid rgba(187,232,242,0.2); text-align: left; position: relative; backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.2);
+            padding: 24px;
+            border-radius: 32px;
+            border: 1px solid #BBE8F2;
+            text-align: left;
+            position: relative;
+            backdrop-filter: blur(10px);
         }
         .step-number {
-            width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;
-            font-size: 18px; font-weight: 700; color: var(--bg-dark); border-radius: 50%;
-            background: var(--gradient-btn); margin-bottom: 20px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--bg-dark);
+            border-radius: 50%;
+            background: linear-gradient(135deg, white, #38E3FF);
+            margin-bottom: 0;
+            margin-right: 16px;
+            flex-shrink: 0;
+            z-index: 10;
         }
-        .step-card h4 { font-size: 22px; font-weight: 600; color: var(--text-white); }
-        .step-card p { color: var(--text-dark-20); font-size: 14px; margin-top: 10px; line-height: 1.7; }
+        @media (min-width: 640px) {
+            .step-number { margin-right: 32px; }
+        }
+        .step-card h4 { font-size: 22px; font-weight: 700; color: var(--text-white); margin-top: 24px; }
+        @media (min-width: 768px) {
+            .step-card h4 { font-size: 24px; }
+        }
+        .step-card p { color: var(--text-dark-20); font-size: 15px; margin-top: 12px; line-height: 1.7; }
         .step-card p a { color: var(--tint-blue); text-decoration: none; }
-        .step-card .step-connector {
-            display: none; position: absolute; right: -20px; top: 0; bottom: 0; margin: auto;
-            width: 20px; border: 2px dashed rgba(130,208,221,0.4); border-left: none; border-radius: 0 4px 4px 0;
+        .step-connector {
+            display: none;
+            position: absolute;
+            right: -24px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            width: 24px;
+            border: 3px dashed #82D0DD;
+            border-left: none;
+            border-radius: 0 4px 4px 0;
+            opacity: 0.4;
+        }
+        @media (min-width: 768px) {
+            .step-connector { display: block; }
         }
         .marco-cta {
-            background: rgba(255,255,255,0.04); padding: 24px; border-radius: 24px;
-            border: 1px solid rgba(187,232,242,0.2); text-align: center; margin-top: 40px; backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.2);
+            padding: 24px;
+            border-radius: 32px;
+            border: 1px solid #BBE8F2;
+            text-align: center;
+            margin-top: 48px;
+            backdrop-filter: blur(10px);
+            position: relative;
         }
-        .marco-cta h4 { font-size: 22px; font-weight: 600; color: var(--text-white); }
-        .marco-cta p { color: var(--text-dark-20); font-size: 14px; margin-top: 10px; line-height: 1.7; }
-        .marco-cta .btn { margin-top: 20px; }
+        .marco-cta h4 { font-size: 22px; font-weight: 700; color: var(--text-white); margin-top: 0; }
+        @media (min-width: 768px) {
+            .marco-cta h4 { font-size: 24px; }
+        }
+        .marco-cta p { color: var(--text-dark-20); font-size: 15px; margin-top: 12px; line-height: 1.7; }
+        .marco-cta .hero-buttons {
+            margin-top: 24px;
+            flex-direction: column-reverse;
+        }
+        .marco-cta .hero-buttons .button { width: 100%; }
+        @media (min-width: 768px) {
+            .marco-cta .hero-buttons { flex-direction: row; }
+            .marco-cta .hero-buttons .button { width: auto; }
+        }
 
-        /* CTA Section */
+        /* ===========================
+           CTA Section — reference effect (the big one!)
+           =========================== */
+        .cta-pre-gradient {
+            width: 100%;
+            height: 256px;
+            background: linear-gradient(180deg, rgba(30,30,30,0) 0%, rgba(40,89,126,0.3) 100%);
+            position: relative;
+            margin-top: 0;
+        }
+        .cta-pre-gradient::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 90%;
+            left: 0;
+            right: 0;
+            top: 0;
+            margin: auto;
+            background: linear-gradient(180deg, rgba(56,227,255,0.8) 0%, rgba(56,227,255,0) 100%);
+            border-radius: 2px;
+            z-index: 2;
+        }
         .cta-section {
-            background: linear-gradient(180deg, rgba(40,89,126,0.2) 0%, rgba(54,211,240,0.15) 50%, rgba(30,30,30,0) 100%);
-            text-align: center; padding: 80px 0; position: relative; margin-top: 80px;
+            background: linear-gradient(180deg, rgba(40,89,126,0.3) 0%, rgba(54,211,240,0.3) 100%);
+            text-align: center;
+            padding: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            position: relative;
+            margin-top: 0;
         }
+        .cta-section .container { padding-top: 0; padding-bottom: 0; position: relative; z-index: 100; }
         .cta-section::before {
-            content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-            width: 3px; height: 80%;
-            background: linear-gradient(180deg, rgba(56,227,255,0.6), rgba(56,227,255,0)); border-radius: 2px;
-        }
-        .cta-section::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: radial-gradient(ellipse 600px 400px at 50% 30%, rgba(56,227,255,0.08) 0%, transparent 70%);
             pointer-events: none;
         }
-        .cta-section img.cta-logo { height: 32px; margin: 0 auto; }
-        .cta-section img.cta-illustration { width: 100%; max-width: 480px; height: auto; margin: 28px auto; }
-        .cta-section h1 { font-size: 64px; font-weight: 600; margin-top: 28px; letter-spacing: -1px; }
-        .cta-section p { max-width: 560px; margin: 24px auto 0; color: var(--text-white); font-size: 15px; text-align: left; line-height: 1.7; }
-        .cta-section .hero-buttons { margin-top: 20px; }
+        .cta-section img.cta-logo {
+            height: 24px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+        @media (min-width: 640px) {
+            .cta-section img.cta-logo { height: 36px; }
+        }
+        .cta-section img.cta-illustration {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            margin: 32px auto 0;
+        }
+        @media (min-width: 640px) {
+            .cta-section img.cta-illustration {
+                width: auto;
+                height: 210px;
+                max-width: none;
+            }
+        }
+        .cta-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 36px;
+            letter-spacing: -0.5px;
+        }
+        @media (min-width: 640px) {
+            .cta-section h1 { font-size: 72px; letter-spacing: -1px; }
+        }
+        .cta-section p { max-width: 600px; margin: 32px auto 0; color: var(--text-white); font-size: 15px; text-align: left; line-height: 1.7; }
+        .cta-section .hero-buttons { margin-top: 24px; }
 
-        /* FAQ Section */
-        .faq-section { padding-top: 120px; padding-bottom: 72px; }
-        .faq-item { padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06); text-align: left; }
-        .faq-item h5 { font-size: 18px; margin-bottom: 8px; color: var(--text-white); font-weight: 600; }
-        .faq-item p { font-size: 14px; color: var(--text-dark-20); line-height: 1.7; }
-        .faq-node-options { margin-top: 20px; }
-        .faq-node-options h5 { font-size: 15px; font-weight: 600; color: var(--text-dark-20); }
-        .node-options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 12px; }
-        .node-option h5 { font-size: 14px; font-weight: 600; color: var(--text-dark-20); }
+        /* CTA post clip-path mask */
+        .cta-post-mask {
+            overflow: hidden;
+            text-align: center;
+            height: 230px;
+            width: 100%;
+            position: relative;
+            margin-top: -1px;
+        }
+        @media (min-width: 640px) {
+            .cta-post-mask { margin-top: 0; }
+        }
+        .cta-post-mask .clip-layer {
+            background: linear-gradient(180deg, rgba(54,211,240,0.3) 0%, rgba(56,227,255,0.3) 100%);
+            margin: 0 auto;
+            position: absolute;
+            inset: 0;
+            clip-path: polygon(
+                0% 0%, 100% 0%,
+                100% 60%, 95% 68%, 90% 58%, 85% 70%, 80% 60%,
+                75% 72%, 70% 62%, 65% 74%, 60% 64%,
+                55% 76%, 50% 66%, 45% 78%, 40% 68%,
+                35% 80%, 30% 70%, 25% 82%, 20% 72%,
+                15% 84%, 10% 74%, 5% 86%, 0% 78%
+            );
+        }
+        .cta-post-mask .lines-layer {
+            width: 100%;
+            height: 230px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            top: 0;
+            background-image: repeating-linear-gradient(
+                180deg,
+                transparent 0px,
+                transparent 14px,
+                rgba(56,227,255,0.18) 14px,
+                rgba(56,227,255,0.18) 15px
+            );
+            -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, #000 30%, #000 100%);
+            clip-path: polygon(
+                0% 20%, 5% 12%, 10% 22%, 15% 14%, 20% 24%,
+                25% 16%, 30% 26%, 35% 18%, 40% 28%, 45% 20%,
+                50% 30%, 55% 22%, 60% 32%, 65% 24%, 70% 34%,
+                75% 26%, 80% 36%, 85% 28%, 90% 38%, 95% 30%,
+                100% 40%, 100% 100%, 0% 100%
+            );
+        }
+
+        /* ===========================
+           FAQ Section
+           =========================== */
+        .faq-section { padding-top: 128px; padding-bottom: 64px; }
+        .faq-item { padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.1); text-align: left; }
+        .faq-item:last-of-type { border-bottom: none; }
+        .faq-item h5 { font-size: 20px; margin-bottom: 8px; color: var(--text-white); font-weight: 700; }
+        .faq-item p { font-size: 15px; color: var(--text-dark-20); line-height: 1.7; }
+        .faq-node-options { margin-top: 0; }
+        .faq-node-options h5 { font-size: 15px; font-weight: 700; color: var(--text-dark-20); }
+        .node-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .node-option h5 { font-size: 15px; font-weight: 700; color: var(--text-dark-20); margin-top: 0; margin-bottom: 0; }
         .node-option ul { list-style: none; padding: 0; }
-        .node-option li { font-size: 13px; color: var(--text-dark-20); }
+        .node-option li { font-size: 14px; color: var(--text-dark-20); }
 
-        /* Disclaimer */
-        .disclaimer { padding: 28px 16px; max-width: 880px; margin: 0 auto; }
+        /* ===========================
+           Disclaimer
+           =========================== */
+        .disclaimer { padding: 32px 16px; max-width: 900px; margin: 0 auto; }
         .disclaimer-box {
-            border-radius: 16px; border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(37,37,37,0.6); backdrop-filter: blur(10px); padding: 20px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(37,37,37,0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 28px;
         }
         .disclaimer-box p { color: var(--text-dark-20); font-size: 13px; line-height: 1.7; }
         .disclaimer-box ul { margin-top: 12px; padding-left: 20px; color: var(--text-dark-20); font-size: 13px; line-height: 1.8; }
 
-        /* Footer */
+        /* ===========================
+           Footer
+           =========================== */
         .footer { text-align: center; padding: 16px; }
         .footer img { height: 32px; margin: 56px auto 16px; }
-        .footer-social { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
-        .footer-social a { color: var(--text-dark-40); margin: 0 8px; transition: color 0.3s; }
+        .footer-social { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; align-items: center; }
+        .footer-social a {
+            color: var(--text-dark-40);
+            margin: 0 8px;
+            transition: color 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
         .footer-social a:hover { color: var(--text-white); }
         .footer-social svg { width: 22px; height: 22px; }
         .footer-links { margin-top: 16px; }
         .footer-links a { color: var(--text-dark-60); font-size: 14px; font-weight: 600; text-decoration: underline; }
         .footer-links button {
-            display: block; background: transparent; border: none; color: var(--text-dark-60);
-            font-size: 14px; font-weight: 600; text-decoration: underline; margin: 10px auto 0;
-            cursor: pointer; font-family: 'Poppins', sans-serif;
+            display: block;
+            background: transparent;
+            border: none;
+            color: var(--text-dark-60);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: underline;
+            margin: 10px auto 0;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
         }
         .footer-links button:hover { color: var(--text-white); }
         .footer-contact { color: var(--text-dark-60); font-size: 13px; margin-top: 8px; }
@@ -323,7 +909,12 @@
         .footer-copyright { color: var(--text-dark-80); font-size: 14px; font-weight: 600; margin-top: 16px; margin-bottom: 32px; }
 
         /* Decorative dots */
-        .dot { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(56,227,255,0.08) 0%, transparent 70%); pointer-events: none; }
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(56,227,255,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
         .dot-1 { width: 700px; height: 700px; left: -203px; top: -225px; }
         .dot-2 { width: 800px; height: 800px; right: -449px; top: -142px; }
         .dot-3 { width: 946px; height: 946px; left: -397px; bottom: -351px; }
@@ -335,66 +926,51 @@
         .animate-on-scroll { opacity: 0; animation: fadeInUp 0.6s ease forwards; }
         .float-animation { animation: float 6s ease-in-out infinite; }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav { display: none; }
-            .mobile-nav { display: flex; }
-            .hero h1 { font-size: 56px; }
-            .section-bg-title { font-size: 56px; }
-            .why-grid { grid-template-columns: 1fr; }
-            .whyjoinus-grid { grid-template-columns: 1fr; }
-            .contributor-features { grid-template-columns: 1fr; }
-            .steps-grid { grid-template-columns: 1fr; }
-            .step-card .step-connector { display: none !important; }
-            .cta-section h1 { font-size: 48px; }
-
-            /* Ecosystem collapses to single column, sticky off */
+        /* ===========================
+           Responsive
+           =========================== */
+        @media (max-width: 1280px) {
             .ecosystem-layout { grid-template-columns: 1fr; gap: 40px; }
             .ecosystem-intro { position: static; top: auto; }
-            .ecosystem-progress { display: none; }
             .ecosystem-card { padding-left: 0; }
-            .ecosystem-number {
-                position: static; display: block; width: auto; text-align: left;
-                font-size: 64px; opacity: 0.14; margin-bottom: 8px;
-            }
-            .ecosystem-card-inner { flex-direction: column-reverse; text-align: center; min-height: auto; }
-            .ecosystem-card-content .btn { margin-top: 20px; }
             .node-options-grid { grid-template-columns: 1fr; }
             .quote { font-size: 22px; }
-            .quote .quote-icon { display: none; }
         }
-
+        @media (max-width: 768px) {
+            .step-card .step-connector { display: none !important; }
+        }
         @media (max-width: 640px) {
             .hero h1 { font-size: 40px; }
-            .hero h6 { font-size: 18px; }
-            .section-title { font-size: 24px; }
-            .section-bg-title { font-size: 40px; line-height: 44px; height: 44px; }
-            .cta-section h1 { font-size: 36px; }
-            .ecosystem-card-inner img, .ecosystem-card-inner > svg { width: 140px; }
-            .why-card h6 { font-size: 18px; }
-            .contributor-feature h6 { font-size: 18px; }
-            .step-card h4 { font-size: 18px; }
-            .marco-cta h4 { font-size: 18px; }
-            .quote { font-size: 18px; }
+            .hero h6 { font-size: 16px; }
+            .section-title { font-size: 26px; }
+            .section-bg-title { font-size: 28px; line-height: 64px; height: 64px; }
+            .cta-section h1 { font-size: 32px; }
+            .why-card h6 { font-size: 22px; }
+            .contributor-feature h6 { font-size: 22px; }
+            .step-card h4 { font-size: 22px; }
+            .marco-cta h4 { font-size: 22px; }
+            .quote { font-size: 20px; }
+            .quote .quote-icon { display: block; }
         }
     </style>
 </head>
 <body>
+    <div class="main-wrap">
 
-    <!-- Navigation -->
+    <!-- Navigation (desktop: xl+) -->
     <nav class="nav">
         <div class="nav-links">
-            <a href="#landing" class="active">Landing</a>
-            <a href="#ecosystem">The Ecosystem</a>
-            <a href="#why-us">Why Us</a>
-            <a href="#why-join">Why Join Us</a>
-            <a href="#contributor">Be a Contributor</a>
-            <a href="#how-to-join">How to Join</a>
-            <a href="#faq">FAQ</a>
+            <div class="nav-link active" data-scroll="#landing">Landing</div>
+            <div class="nav-link" data-scroll="#ecosystem">The Ecosystem</div>
+            <div class="nav-link" data-scroll="#why-us">Why Us</div>
+            <div class="nav-link" data-scroll="#why-join">Why Join Us</div>
+            <div class="nav-link" data-scroll="#contributor">Be a Contributor</div>
+            <div class="nav-link" data-scroll="#how-to-join">How to Join</div>
+            <div class="nav-link" data-scroll="#faq">FAQ</div>
         </div>
         <div class="nav-buttons">
-            <a href="about.html"><button class="btn btn-secondary">Learn About Aether</button></a>
-            <a href="dashboard.html"><button class="btn btn-primary">Enter Dashboard</button></a>
+            <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">Learn About Nubila</button></a>
+            <a href="dashboard.html"><button class="primary button">Enter Dashboard</button></a>
         </div>
     </nav>
 
@@ -406,297 +982,275 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="dashboard.html"><button class="btn btn-primary">Enter Dashboard</button></a>
-        <a href="about.html"><button class="btn btn-secondary">Learn About Aether</button></a>
-        <a href="#landing">Landing</a>
-        <a href="#ecosystem">The Ecosystem</a>
-        <a href="#why-us">Why Us</a>
-        <a href="#why-join">Why Join Us</a>
-        <a href="#contributor">Be a Contributor</a>
-        <a href="#how-to-join">How to Join</a>
-        <a href="#faq">FAQ</a>
+        <a href="dashboard.html"><button class="primary button">Enter Dashboard</button></a>
+        <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">Learn About Nubila</button></a>
+        <div class="nav-link" data-scroll="#landing">Landing</div>
+        <div class="nav-link" data-scroll="#ecosystem">The Ecosystem</div>
+        <div class="nav-link" data-scroll="#why-us">Why Us</div>
+        <div class="nav-link" data-scroll="#why-join">Why Join Us</div>
+        <div class="nav-link" data-scroll="#contributor">Be a Contributor</div>
+        <div class="nav-link" data-scroll="#how-to-join">How to Join</div>
+        <div class="nav-link" data-scroll="#faq">FAQ</div>
     </div>
 
     <!-- Hero Section -->
     <section class="hero" id="landing">
-        <div class="container">
+        <div class="container relative pt-[128px]">
             <div class="dot dot-1"></div>
-            <img src="Data/logoo.PNG" alt="Logo" class="hero-logo">
-            <h1>Fuel the<br><span class="gradient-text">Physical Data Economy</span></h1>
-            <h6>Build the World's First Decentralized Physical Perception Layer</h6>
-            <p>Run a validator node. Power the physical perception layer.</p>
-            <div class="hero-buttons">
-                <a href="#faq"><button class="btn btn-secondary">View Rules</button></a>
-                <a href="dashboard.html"><button class="btn btn-primary">Apply Now</button></a>
+            <div class="relative text-center">
+                <img src="Data/logoo.PNG" alt="Logo" class="hero-logo">
+                <h1>Fuel the<br><span class="gradient-text">Physical Data Economy</span></h1>
+                <h6>Build the World's First Decentralized Physical Perception Layer</h6>
+                <p class="hero-tagline">Run a validator node. Power the physical perception layer.</p>
+                <div class="hero-buttons">
+                    <a href="#faq"><button class="button secondary light">View Rules</button></a>
+                    <a href="dashboard.html"><button class="button shadow-button">Apply Now</button></a>
+                </div>
+                <img
+                    src="Data/landing.svg"
+                    alt="Nubila physical perception network"
+                    class="hero-illustration videoMask float-animation"
+                    fetchpriority="high"
+                />
+                <div class="hero-description">
+                    <p class="one-network">One Network. Two Roles. Infinite Impact.</p>
+                    <p>Nubila is building the world's first Physical Perception Layer — a decentralized infrastructure where sensors capture reality, nodes validate it, and the oracle delivers trusted intelligence for AI, finance, and global industries.</p>
+                    <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">What's Nubila</button></a>
+                </div>
+                <div class="divider"></div>
             </div>
-            <svg class="hero-illustration float-animation" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <radialGradient id="heroGrad" cx="0.5" cy="0.5" r="0.5">
-                        <stop offset="0%" stop-color="#38E3FF" stop-opacity="0.15"/>
-                        <stop offset="100%" stop-color="transparent"/>
-                    </radialGradient>
-                    <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#38E3FF" stop-opacity="0"/>
-                        <stop offset="50%" stop-color="#38E3FF" stop-opacity="0.3"/>
-                        <stop offset="100%" stop-color="#38E3FF" stop-opacity="0"/>
-                    </linearGradient>
-                </defs>
-                <ellipse cx="450" cy="200" rx="380" ry="140" fill="url(#heroGrad)"/>
-                <circle cx="200" cy="120" r="50" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.2"/>
-                <circle cx="700" cy="280" r="70" fill="none" stroke="#38E3FF" stroke-width="0.6" opacity="0.15"/>
-                <circle cx="450" cy="200" r="90" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.25"/>
-                <circle cx="450" cy="200" r="140" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.15"/>
-                <circle cx="450" cy="200" r="190" fill="none" stroke="#38E3FF" stroke-width="0.4" opacity="0.1"/>
-                <line x1="100" y1="200" x2="800" y2="200" stroke="url(#lineGrad)" stroke-width="0.8"/>
-                <circle cx="200" cy="120" r="4" fill="#38E3FF" opacity="0.4"/>
-                <circle cx="700" cy="280" r="4" fill="#38E3FF" opacity="0.3"/>
-                <circle cx="450" cy="200" r="6" fill="#38E3FF" opacity="0.25"/>
-                <circle cx="320" cy="160" r="3" fill="#38E3FF" opacity="0.2"/>
-                <circle cx="580" cy="240" r="3" fill="#38E3FF" opacity="0.2"/>
-            </svg>
-            <div class="hero-description">
-                <p>One Network. Two Roles. Infinite Impact.</p>
-                <p>Aether is building a Physical Perception Layer — a decentralized infrastructure where sensors capture reality, nodes validate it, and the oracle delivers trusted intelligence for AI, finance, and global industries.</p>
-                <a href="about.html"><button class="btn btn-secondary">What's Aether</button></a>
-            </div>
-            <div class="divider"></div>
         </div>
     </section>
 
-    <!-- Ecosystem Section (sticky intro + scrolling cards) -->
+    <!-- Ecosystem Section (sticky intro + scrolling cards — reference layout) -->
     <section class="section" id="ecosystem">
-        <div class="container">
+        <div class="container pt-[64px] relative">
             <div class="dot dot-3"></div>
-            <div class="ecosystem-layout">
+            <div class="relative">
+                <div class="ecosystem-layout">
 
-                <!-- LEFT: sticky intro -->
-                <div class="ecosystem-intro">
-                    <div class="section-bg-title">The Ecosystem</div>
-                    <h5 class="section-title">Where Stations, Validator Nodes,<br>and the Oracle Converge</h5>
-                    <p class="section-desc">Aether's ecosystem works as a unified engine: decentralized weather stations capture signals, validator nodes secure and validate them, and the oracle delivers trusted intelligence. A decentralized physical data economy is emerging — will you power it or watch it unfold?</p>
-                    <div class="ecosystem-progress" aria-hidden="true">
-                        <span class="ep-dot active" data-idx="0"></span>
-                        <span class="ep-dot" data-idx="1"></span>
-                        <span class="ep-dot" data-idx="2"></span>
+                    <!-- LEFT: sticky intro -->
+                    <div class="ecosystem-intro">
+                        <div class="h-[64px] w-auto">
+                            <div class="section-bg-title">The Ecosystem</div>
+                        </div>
+                        <h5 class="section-title">Where Stations, Validator Nodes,<br>and the Oracle Converge</h5>
+                        <p class="section-desc">Nubila's ecosystem works as a unified engine: decentralized weather stations capture signals, validator nodes secure and validate them, and the oracle delivers trusted intelligence. A decentralized physical data economy is emerging — will you power it or watch it unfold?</p>
                     </div>
+
+                    <!-- RIGHT: scrolling cards -->
+                    <div class="ecosystem-cards">
+                        <div class="ecosystem-card-wrap">
+                            <div class="ecosystem-number">1</div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-card-inner homeCard">
+                                    <div class="ecosystem-card-content">
+                                        <h6>Marco</h6>
+                                        <p>Smart, solar-powered weather stations that capture real-time hyperlocal data directly from the physical world.</p>
+                                        <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">Explore</button></a>
+                                    </div>
+                                    <img
+                                        class="ecosystem-card-img"
+                                        src="Data/Marco.png"
+                                        alt="Marco weather station"
+                                        width="200"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ecosystem-card-wrap">
+                            <div class="ecosystem-number">2</div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-card-inner homeCard">
+                                    <div class="ecosystem-card-content">
+                                        <h6>Validator Nodes</h6>
+                                        <p>Decentralized processors that validate and secure this data, enabling its use in AI, finance, and beyond.</p>
+                                        <a href="dashboard.html"><button class="button secondary light">Join Now</button></a>
+                                    </div>
+                                    <img
+                                        class="ecosystem-card-img"
+                                        src="Data/ValidatorNodes.png"
+                                        alt="Validator node"
+                                        width="200"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ecosystem-card-wrap">
+                            <div class="ecosystem-number">3</div>
+                            <div class="ecosystem-card">
+                                <div class="ecosystem-card-inner homeCard">
+                                    <div class="ecosystem-card-content">
+                                        <h6>RWA Oracle</h6>
+                                        <p>The final step—validated weather data powers real-world assets across industries like AI, agriculture and insurance.</p>
+                                        <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">See All</button></a>
+                                    </div>
+                                    <img
+                                        class="ecosystem-card-img"
+                                        src="Data/ESGOracle.png"
+                                        alt="RWA Oracle"
+                                        width="200"
+                                        loading="lazy"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-
-                <!-- RIGHT: scrolling cards -->
-                <div class="ecosystem-cards">
-                    <div class="ecosystem-card" data-idx="0">
-                        <span class="ecosystem-number">1</span>
-                        <div class="ecosystem-card-inner">
-                            <div class="ecosystem-card-content">
-                                <h6>Marco</h6>
-                                <p>Smart, solar-powered weather stations that capture real-time hyperlocal data directly from the physical world.</p>
-                                <a href="#"><button class="btn btn-secondary">Explore</button></a>
-                            </div>
-                            <svg width="180" height="140" viewBox="0 0 180 140" fill="none">
-                                <rect x="50" y="30" width="80" height="55" rx="8" fill="#252525" stroke="#38E3FF" stroke-width="0.8" opacity="0.8"/>
-                                <circle cx="90" cy="57" r="18" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                                <line x1="90" y1="39" x2="90" y2="75" stroke="#38E3FF" stroke-width="0.4" opacity="0.25"/>
-                                <line x1="72" y1="57" x2="108" y2="57" stroke="#38E3FF" stroke-width="0.4" opacity="0.25"/>
-                                <rect x="60" y="85" width="60" height="3" rx="1.5" fill="#38E3FF" opacity="0.2"/>
-                                <circle cx="90" cy="15" r="6" fill="#38E3FF" opacity="0.15"/>
-                                <circle cx="40" cy="110" r="3" fill="#38E3FF" opacity="0.1"/>
-                                <circle cx="140" cy="110" r="3" fill="#38E3FF" opacity="0.1"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="ecosystem-card" data-idx="1">
-                        <span class="ecosystem-number">2</span>
-                        <div class="ecosystem-card-inner">
-                            <div class="ecosystem-card-content">
-                                <h6>Validator Nodes</h6>
-                                <p>Decentralized processors that validate and secure this data, enabling its use in AI, finance, and beyond.</p>
-                                <a href="dashboard.html"><button class="btn btn-secondary">Join Now</button></a>
-                            </div>
-                            <svg width="180" height="140" viewBox="0 0 180 140" fill="none">
-                                <rect x="45" y="25" width="90" height="75" rx="8" fill="#252525" stroke="#38E3FF" stroke-width="0.8" opacity="0.8"/>
-                                <rect x="55" y="35" width="70" height="55" rx="4" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.25"/>
-                                <circle cx="90" cy="62" r="14" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                                <circle cx="90" cy="62" r="4" fill="#38E3FF" opacity="0.25"/>
-                                <line x1="45" y1="100" x2="135" y2="100" stroke="#38E3FF" stroke-width="0.4" opacity="0.15"/>
-                                <circle cx="30" cy="120" r="3" fill="#38E3FF" opacity="0.1"/>
-                                <circle cx="150" cy="120" r="3" fill="#38E3FF" opacity="0.1"/>
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="ecosystem-card" data-idx="2">
-                        <span class="ecosystem-number">3</span>
-                        <div class="ecosystem-card-inner">
-                            <div class="ecosystem-card-content">
-                                <h6>RWA Oracle</h6>
-                                <p>The final step—validated weather data powers real-world assets across industries like AI, agriculture and insurance.</p>
-                                <a href="#"><button class="btn btn-secondary">See All</button></a>
-                            </div>
-                            <svg width="180" height="140" viewBox="0 0 180 140" fill="none">
-                                <polygon points="90,15 165,120 15,120" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.25"/>
-                                <circle cx="90" cy="85" r="22" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                                <circle cx="90" cy="85" r="8" fill="#38E3FF" opacity="0.15"/>
-                                <line x1="90" y1="15" x2="90" y2="63" stroke="#38E3FF" stroke-width="0.4" opacity="0.25"/>
-                                <line x1="15" y1="120" x2="165" y2="120" stroke="#38E3FF" stroke-width="0.4" opacity="0.15"/>
-                                <circle cx="50" cy="50" r="3" fill="#38E3FF" opacity="0.1"/>
-                                <circle cx="130" cy="50" r="3" fill="#38E3FF" opacity="0.1"/>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="divider" style="margin-top: 0;"></div>
             </div>
-            <div class="divider" style="margin-top: 72px;"></div>
         </div>
     </section>
 
     <!-- Why Us Section -->
     <section class="section" id="why-us">
-        <div class="container">
+        <div class="container pt-[64px] relative">
             <div class="dot dot-2"></div>
-            <div class="section-header">
-                <div class="section-bg-title">Why Us?</div>
+            <div class="relative">
+                <div class="h-[64px] w-auto">
+                    <div class="section-bg-title">Why Us?</div>
+                </div>
                 <h5 class="section-title">It's Not Just Participation - <br> It's Ownership in the Physical Perception Layer</h5>
-                <p class="section-desc">Aether is building a decentralized ecosystem where weather stations capture real-world signals, validator nodes secure and validate them, and the oracle transforms them into intelligence for AI, finance, and industries. By joining, you don't just participate — you own a piece of the future data economy.</p>
-            </div>
+                <p class="section-desc">Nubila is building a decentralized ecosystem where weather stations capture real-world signals, validator nodes secure and validate them, and the oracle transforms them into intelligence for AI, finance, and industries. By joining, you don't just participate — you own a piece of the future data economy.</p>
 
-            <p class="why-subtitle">Marco Devices – Capture the Physical World</p>
-            <div class="why-grid">
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M28 10 L28 46 M10 28 L46 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                        <circle cx="28" cy="28" r="7" fill="#38E3FF" opacity="0.2"/>
-                    </svg>
-                    <h6>Real-World <br> Impact</h6>
-                    <p>These hyperlocal weather stations collect temperature, humidity, UV, wind, and pressure—feeding raw, high-resolution data into the Aether network.</p>
+                <p class="why-subtitle">Marco Devices – Capture the Physical World</p>
+                <div class="why-grid">
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M28 10 L28 46 M10 28 L46 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
+                            <circle cx="28" cy="28" r="7" fill="#38E3FF" opacity="0.2"/>
+                        </svg>
+                        <h6>Real-World <br> Impact</h6>
+                        <p>These hyperlocal weather stations collect temperature, humidity, UV, wind, and pressure—feeding raw, high-resolution data into the Nubila network.</p>
+                    </div>
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M18 28 L25 35 L38 22" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        </svg>
+                        <h6>Instant <br> Rewards</h6>
+                        <p>Start earning tokenized rewards from Day 1 just by running your device—no technical setup required.</p>
+                    </div>
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M28 14 L34 28 L28 42 L22 28 Z" fill="#38E3FF" opacity="0.2"/>
+                        </svg>
+                        <h6>Own <br> the Source</h6>
+                        <p>Be the origin of verifiable real-world data powering industries, AI, and real-world assets (RWA).</p>
+                    </div>
                 </div>
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M18 28 L25 35 L38 22" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    </svg>
-                    <h6>Instant <br>Rewards</h6>
-                    <p>Start earning tokenized rewards from Day 1 just by running your device—no technical setup required.</p>
-                </div>
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M28 14 L34 28 L28 42 L22 28 Z" fill="#38E3FF" opacity="0.2"/>
-                    </svg>
-                    <h6>Own <br> the Source</h6>
-                    <p>Be the origin of verifiable real-world data powering industries, AI, and real-world assets (RWA).</p>
-                </div>
-            </div>
 
-            <p class="why-subtitle">Validator Node – Power the RWA Oracle</p>
-            <div class="why-grid" style="margin-bottom: 72px;">
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M21 28 L26 33 L35 23" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    </svg>
-                    <h6>Anchor Data to Reality</h6>
-                    <p>Validate signals from decentralized stations, ensuring integrity before they fuel AI and financial systems.</p>
+                <p class="why-subtitle">Validator Node – Power the RWA Oracle</p>
+                <div class="why-grid" style="margin-bottom: 64px;">
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M21 28 L26 33 L35 23" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        </svg>
+                        <h6>Anchor Data to Reality</h6>
+                        <p>Validate signals from decentralized stations, ensuring integrity before they fuel AI and financial systems.</p>
+                    </div>
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <rect x="21" y="21" width="14" height="14" rx="2" fill="#38E3FF" opacity="0.2"/>
+                        </svg>
+                        <h6>Secure the Network</h6>
+                        <p>Every node strengthens consensus, building a trustless oracle for industries and autonomous agents.</p>
+                    </div>
+                    <div class="why-card homeCard highlight">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M28 16 L28 40 M16 28 L40 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
+                            <circle cx="28" cy="28" r="3" fill="#38E3FF" opacity="0.4"/>
+                        </svg>
+                        <h6>Shape the Future</h6>
+                        <p>Be part of the backbone of the Physical Perception Layer — where real-world signals become programmable assets.</p>
+                    </div>
                 </div>
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <rect x="21" y="21" width="14" height="14" rx="2" fill="#38E3FF" opacity="0.2"/>
-                    </svg>
-                    <h6>Secure the Network</h6>
-                    <p>Every node strengthens consensus, building a trustless oracle for industries and autonomous agents.</p>
-                </div>
-                <div class="why-card highlight">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M28 16 L28 40 M16 28 L40 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                        <circle cx="28" cy="28" r="3" fill="#38E3FF" opacity="0.4"/>
-                    </svg>
-                    <h6>Shape the Future</h6>
-                    <p>Be part of the backbone of the Physical Perception Layer — where real-world signals become programmable assets.</p>
-                </div>
+                <div class="divider"></div>
             </div>
-            <div class="divider"></div>
         </div>
     </section>
 
     <!-- Why Join Us Section -->
     <section class="section" id="why-join">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-bg-title">Why Join Us?</div>
+        <div class="container pt-[64px] relative">
+            <div class="relative">
+                <div class="h-[64px] w-auto">
+                    <div class="section-bg-title">Why Join Us?</div>
+                </div>
                 <h5 class="section-title">Decentralized Infrastructure Meets<br>Purpose-Driven Innovation</h5>
                 <p class="section-desc">Marco and Validator Nodes aren't just components—they're the dual engine behind a decentralized, permissionless system powering the real-world data economy.</p>
-            </div>
-            <div class="whyjoinus-grid">
-                <div class="whyjoinus-item">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M28 10 L28 46 M10 28 L46 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
-                        <circle cx="28" cy="28" r="7" fill="#38E3FF" opacity="0.2"/>
-                    </svg>
-                    <div>
-                        <h6>Impact at Scale</h6>
-                        <p>Shape how real-time data influences sustainability, AI, and innovation.</p>
+                <div class="whyjoinus-grid">
+                    <div class="whyjoinus-item">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M28 10 L28 46 M10 28 L46 28" stroke="#38E3FF" stroke-width="0.8" opacity="0.4"/>
+                            <circle cx="28" cy="28" r="7" fill="#38E3FF" opacity="0.2"/>
+                        </svg>
+                        <div>
+                            <h6>Impact at Scale</h6>
+                            <p>Shape how real-time data influences sustainability, AI, and innovation.</p>
+                        </div>
+                    </div>
+                    <div class="whyjoinus-item">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <circle cx="21" cy="24" r="3.5" fill="#38E3FF" opacity="0.2"/>
+                            <circle cx="35" cy="24" r="3.5" fill="#38E3FF" opacity="0.2"/>
+                            <path d="M21 34 Q28 40 35 34" stroke="#38E3FF" stroke-width="0.8" fill="none" opacity="0.4"/>
+                        </svg>
+                        <div>
+                            <h6>Community-Driven</h6>
+                            <p>Join a growing network of pioneers passionate about decentralizing the future.</p>
+                        </div>
+                    </div>
+                    <div class="whyjoinus-item">
+                        <svg width="64" height="64" viewBox="0 0 56 56" fill="none">
+                            <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                            <path d="M18 28 L25 35 L38 22" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        </svg>
+                        <div>
+                            <h6>Earn for Your Contribution</h6>
+                            <p>Receive meaningful rewards for helping secure and grow Nubila's ecosystem.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="whyjoinus-item">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <circle cx="21" cy="24" r="3.5" fill="#38E3FF" opacity="0.2"/>
-                        <circle cx="35" cy="24" r="3.5" fill="#38E3FF" opacity="0.2"/>
-                        <path d="M21 34 Q28 40 35 34" stroke="#38E3FF" stroke-width="0.8" fill="none" opacity="0.4"/>
-                    </svg>
-                    <div>
-                        <h6>Community-Driven</h6>
-                        <p>Join a growing network of pioneers passionate about decentralizing the future.</p>
-                    </div>
+                <div class="quote-section">
+                    <h4 class="quote">
+                        <svg class="quote-icon quote-left" viewBox="0 0 24 24" fill="#38E3FF" opacity="0.4"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        You're not just building infrastructure – <br> You're <span class="gradient-text" style="font-style: italic; padding-right: 4px;">building our world</span>, shaping how the world captures, values, and trades real-world data.
+                        <svg class="quote-icon quote-right" viewBox="0 0 24 24" fill="#38E3FF" opacity="0.4"><path d="M9.983 21v-7.391c0-5.704-3.731-9.57-8.983-10.609l-.995 2.151c2.432.917 3.995 3.638 3.995 5.849h-4v10h9.983zm14.017 0v-7.391c0-5.704-3.748-9.57-9-10.609l-.996 2.151c2.433.917 3.996 3.638 3.996 5.849h-3.983v10h9.983z"/></svg>
+                    </h4>
                 </div>
-                <div class="whyjoinus-item">
-                    <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-                        <circle cx="28" cy="28" r="24" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                        <path d="M18 28 L25 35 L38 22" stroke="#38E3FF" stroke-width="1.5" fill="none" opacity="0.6"/>
-                    </svg>
-                    <div>
-                        <h6>Earn for Your Contribution</h6>
-                        <p>Receive meaningful rewards for helping secure and grow the ecosystem.</p>
-                    </div>
-                </div>
+                <div class="divider"></div>
             </div>
-            <div class="quote-section">
-                <h4 class="quote">
-                    <svg class="quote-icon quote-left" viewBox="0 0 24 24" fill="#38E3FF" opacity="0.4"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
-                    You're not just building infrastructure – <br> You're <span class="gradient-text" style="font-style: italic;">building our world</span>, shaping how the world captures, values, and trades real-world data.
-                    <svg class="quote-icon quote-right" viewBox="0 0 24 24" fill="#38E3FF" opacity="0.4"><path d="M9.983 21v-7.391c0-5.704-3.731-9.57-8.983-10.609l-.995 2.151c2.432.917 3.995 3.638 3.995 5.849h-4v10h9.983zm14.017 0v-7.391c0-5.704-3.748-9.57-9-10.609l-.996 2.151c2.433.917 3.996 3.638 3.996 5.849h-3.983v10h9.983z"/></svg>
-                </h4>
-            </div>
-            <div class="divider"></div>
         </div>
     </section>
 
     <!-- Contributor Section -->
     <section class="section" id="contributor">
-        <div class="container">
+        <div class="container pt-[64px] relative">
             <div class="dot dot-4"></div>
-            <div class="contributor-section">
-                <div class="section-bg-title" style="text-align: center;">Be a Core Contributor</div>
+            <div class="contributor-section relative text-center">
+                <div class="h-[64px] w-auto text-center">
+                    <div class="section-bg-title" style="text-align: center;">Be a Core Contributor</div>
+                </div>
                 <h5 class="section-title" style="text-align: center;">From Data to Action - <br>Marco and Validator Nodes Make It Possible</h5>
-                <svg width="100%" height="200" viewBox="0 0 560 200" fill="none" style="max-width: 560px; margin: 28px auto;" class="float-animation">
-                    <defs>
-                        <radialGradient id="contribGrad" cx="0.5" cy="0.5" r="0.5">
-                            <stop offset="0%" stop-color="#38E3FF" stop-opacity="0.12"/>
-                            <stop offset="100%" stop-color="transparent"/>
-                        </radialGradient>
-                    </defs>
-                    <ellipse cx="280" cy="100" rx="230" ry="75" fill="url(#contribGrad)"/>
-                    <circle cx="140" cy="75" r="28" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.25"/>
-                    <circle cx="420" cy="125" r="38" fill="none" stroke="#38E3FF" stroke-width="0.6" opacity="0.2"/>
-                    <circle cx="280" cy="100" r="48" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.35"/>
-                    <circle cx="280" cy="100" r="18" fill="#38E3FF" opacity="0.12"/>
-                    <circle cx="200" cy="60" r="3" fill="#38E3FF" opacity="0.15"/>
-                    <circle cx="360" cy="140" r="3" fill="#38E3FF" opacity="0.15"/>
-                </svg>
+                <img
+                src="Data/contributor.png"
+                alt="Marco and Validator Nodes"
+                class="contributor-img float-animation"
+                loading="lazy"
+                />
                 <p>Run a Marco or Validator Node to earn from the rising value of real-world weather data.</p>
                 <div class="contributor-features">
                     <div class="contributor-feature">
@@ -712,7 +1266,7 @@
                     <div class="contributor-feature">
                         <h6>Scalable Contribution</h6>
                         <div class="feature-line"></div>
-                        <p>As the ecosystem grows, so does the value of your role.</p>
+                        <p>As Nubila's ecosystem grows, so does the value of your role.</p>
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -722,79 +1276,81 @@
 
     <!-- How to Join Section -->
     <section class="section" id="how-to-join">
-        <div class="container">
-            <div class="section-header" style="text-align: center;">
+        <div class="container relative pt-[64px] text-center">
+            <div class="h-[64px] w-auto text-center">
                 <div class="section-bg-title" style="text-align: center;">Simple Steps to Join Us</div>
-                <h5 class="section-title" style="text-align: center;">Become a Marco Holder</h5>
             </div>
-            <div class="steps-grid">
+            <h5 class="section-title" style="text-align: center;">Become a Marco Holder</h5>
+            <div class="steps-grid shadow-steps">
                 <div class="step-card">
                     <div class="step-number">1</div>
                     <h4>Apply Today</h4>
                     <p>Fill out our quick application <a href="#">here</a>.</p>
-                    <div class="step-connector"></div>
+                    <hr class="step-connector">
                 </div>
                 <div class="step-card">
                     <div class="step-number">2</div>
                     <h4>Get Approved</h4>
                     <p>Our team will guide you through the onboarding process.</p>
-                    <div class="step-connector"></div>
+                    <hr class="step-connector">
                 </div>
             </div>
-            <div class="marco-cta">
+            <div class="marco-cta shadow-steps">
                 <h4>Your Marco. Your Asset.</h4>
-                <p>Marco isn't just a device—it's your personal gateway to a real-world data network.<br>Own the source. Capture hyperlocal weather. Start contributing from anywhere.</p>
-                <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
-                    <a href="#"><button class="btn btn-secondary">View Specs</button></a>
-                    <a href="#"><button class="btn btn-primary">Buy Marco Now</button></a>
+                <p>Marco isn't just a device—it's your personal gateway to the world's largest real-world data network.<br>Own the source. Capture hyperlocal weather. Start contributing from anywhere.</p>
+                <div class="hero-buttons">
+                    <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">View Specs</button></a>
+                    <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button shadow-button">Buy Marco Now</button></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
+    <!-- CTA PRE-GRADIENT TRANSITION + VERTICAL LINE -->
+    <div class="cta-pre-gradient"></div>
+
+    <!-- CTA SECTION -->
     <section class="cta-section">
-        <div class="container">
+        <div class="container text-center">
             <img src="Data/logoo.PNG" alt="Logo" class="cta-logo">
-            <svg width="100%" height="200" viewBox="0 0 560 200" fill="none" style="max-width: 480px; margin: 28px auto;" class="float-animation">
-                <defs>
-                    <radialGradient id="ctaGrad" cx="0.5" cy="0.5" r="0.5">
-                        <stop offset="0%" stop-color="#38E3FF" stop-opacity="0.12"/>
-                        <stop offset="100%" stop-color="transparent"/>
-                    </radialGradient>
-                </defs>
-                <ellipse cx="280" cy="100" rx="190" ry="65" fill="url(#ctaGrad)"/>
-                <circle cx="280" cy="100" r="38" fill="none" stroke="#38E3FF" stroke-width="0.8" opacity="0.35"/>
-                <circle cx="280" cy="100" r="14" fill="#38E3FF" opacity="0.15"/>
-                <circle cx="190" cy="75" r="18" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.25"/>
-                <circle cx="370" cy="125" r="22" fill="none" stroke="#38E3FF" stroke-width="0.5" opacity="0.2"/>
-                <circle cx="230" cy="55" r="3" fill="#38E3FF" opacity="0.15"/>
-                <circle cx="330" cy="145" r="3" fill="#38E3FF" opacity="0.15"/>
-            </svg>
+            <img
+                src="Data/cta.png"
+                alt="Validator node illustration"
+                class="cta-illustration float-animation"
+                loading="lazy"
+            />
             <h1><span class="gradient-text">Your Node.</span> Your Impact.</h1>
-            <p>Validator Nodes aren't just technical gear—they're your ticket to shaping the future of decentralized infrastructure, sustainability, and the physical data economy.</p>
+            <p>Validator Nodes aren't just technical gear—they're your ticket to shaping the future of decentralized infrastructure, sustainability, and MachineFi.</p>
             <div class="hero-buttons">
-                <a href="#faq"><button class="btn btn-secondary">View Rules</button></a>
-                <a href="dashboard.html"><button class="btn btn-primary">Apply Now</button></a>
+                <a href="#faq"><button class="button secondary light">View Rules</button></a>
+                <a href="dashboard.html"><button class="button shadow-button">Apply Now</button></a>
             </div>
         </div>
     </section>
+
+    <!-- CTA POST CLIP-PATH MASK + LINES -->
+    <div class="cta-post-mask">
+        <div class="clip-layer"></div>
+        <div class="lines-layer"></div>
+    </div>
 
     <!-- FAQ Section -->
     <section class="faq-section" id="faq">
-        <div class="container">
-            <div style="text-align: center;">
-                <div class="section-bg-title" style="text-align: center;">FAQ</div>
+        <div class="container pt-[128px] pb-[64px] relative">
+            <div class="relative text-center">
+                <div class="h-[64px] w-auto text-center">
+                    <div class="section-bg-title" style="text-align: center;">FAQ</div>
+                </div>
                 <h5 class="section-title" style="text-align: center;">Curious? Let's Break it Down</h5>
             </div>
-            <div style="margin-top: 56px;">
+            <div style="margin-top: 64px;">
                 <div class="faq-item">
                     <h5>What are Validator Nodes?</h5>
-                    <p>Validator Nodes are community-run nodes that form the backbone of the oracle network. They don't collect data themselves — instead, they validate and secure signals from decentralized weather stations. By recomputing content hashes (CIDs), checking timestamps and device signatures, and reaching consensus with other nodes, they ensure only authentic data is anchored on-chain.</p>
+                    <p>Validator Nodes are community-run nodes that form the backbone of Nubila's oracle network. They don't collect data themselves — instead, they validate and secure signals from Nubila's decentralized weather stations. By recomputing content hashes (CIDs), checking timestamps and device signatures, and reaching consensus with other nodes, they ensure only authentic data is anchored on-chain.</p>
                 </div>
                 <div class="faq-item">
                     <h5>What does a Validator Node do?</h5>
-                    <p>Validator Nodes check and process data packages uploaded daily by weather stations, verifying accuracy and integrity before submitting attestations on-chain. Once a quorum is reached, the data becomes part of the immutable oracle layer. Nodes can run in multiple modes — from browser-based Web UI to CLI or VPS — making participation both accessible and reward-driven.</p>
+                    <p>Validator Nodes check and process data packages uploaded daily by weather stations, verifying accuracy and integrity before submitting attestations on-chain. Once a quorum is reached, the data becomes part of Nubila's immutable oracle layer. Nodes can run in multiple modes — from browser-based Web UI to CLI or VPS — making participation both accessible and reward-driven.</p>
                 </div>
                 <div class="faq-item">
                     <div class="faq-node-options">
@@ -802,15 +1358,15 @@
                         <div class="node-options-grid">
                             <div class="node-option">
                                 <h5>Cloud Node</h5>
-                                <ul><li>Daily Mining Output: 1.6 $AET</li></ul>
+                                <ul><li>Daily Mining Output: 1.6 $NB</li></ul>
                             </div>
                             <div class="node-option">
                                 <h5>Rainy Node</h5>
-                                <ul><li>Daily Mining Output: 3.66 $AET</li></ul>
+                                <ul><li>Daily Mining Output: 3.66 $NB</li></ul>
                             </div>
                             <div class="node-option">
                                 <h5>Sunny Node</h5>
-                                <ul><li>Daily Mining Output: 16 $AET</li></ul>
+                                <ul><li>Daily Mining Output: 16 $NB</li></ul>
                             </div>
                         </div>
                     </div>
@@ -830,7 +1386,7 @@
     <!-- Disclaimer -->
     <div class="disclaimer">
         <div class="disclaimer-box">
-            <p>Validator participation is not an investment contract or security. Rewards are protocol-defined incentives and are not guaranteed income. Token value, if any, may fluctuate.</p>
+            <p>Validator participation is not an investment contract or security. Rewards are protocol-defined incentives and are not guaranteed income. Token value, if any, may fluctuate. Validator participation requires technical understanding and carries inherent risks including but not limited to network changes, protocol adjustments, and potential loss of staked tokens.</p>
             <ul>
                 <li>Tokens are utility-based.</li>
                 <li>No expectation of profit.</li>
@@ -844,7 +1400,7 @@
         <div class="container">
             <img src="Data/logoo.PNG" alt="Logo">
             <div class="footer-social">
-                <a href="https://x.com/nubilarh?s=11" aria-label="Twitter">
+                <a href="https://x.com/nubilarh?s=11" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                     <svg viewBox="0 0 512 512" fill="currentColor"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                 </a>
             </div>
@@ -852,48 +1408,99 @@
                 <a href="#" target="_blank">Our Media Kit</a>
                 <button>Cookie settings</button>
             </div>
-            <p class="footer-contact">Contact: <a href="mailto:info@example.com">info@example.com</a></p>
-            <p class="footer-copyright">&copy; 2026 Aether Network. - All Rights Reserved.</p>
+            <p class="footer-contact">Contact: <a href="mailto:gm@nubila.network">gm@nubila.network</a></p>
+            <p class="footer-copyright">&copy; 2026 Nubila Foundation. - All Rights Reserved.</p>
         </div>
     </footer>
 
+    </div><!-- /main-wrap -->
+
     <script>
+        // ============================================
+        // Base helpers
+        // ============================================
         // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
-        hamburger.addEventListener('click', () => { mobileMenu.classList.toggle('open'); });
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => { mobileMenu.classList.remove('open'); });
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                const isOpen = mobileMenu.classList.toggle('open');
+                hamburger.classList.toggle('open', isOpen);
+                document.body.classList.toggle('mobile-menu-open', isOpen);
+            });
+        }
+        const closeMobile = () => {
+            if (mobileMenu) mobileMenu.classList.remove('open');
+            if (hamburger) hamburger.classList.remove('open');
+            document.body.classList.remove('mobile-menu-open');
+        };
+
+        // Smooth scroll + active nav link update
+        function smoothScrollTo(hash) {
+            if (!hash || hash === '#') return;
+            const target = document.querySelector(hash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Handle nav-link clicks (both desktop nav and mobile menu)
+        document.querySelectorAll('[data-scroll]').forEach(el => {
+            el.addEventListener('click', function () {
+                const hash = this.getAttribute('data-scroll');
+                closeMobile();
+                smoothScrollTo(hash);
+                // update active state for desktop
+                updateActiveByHash(hash);
+            });
         });
 
-        // Smooth scroll for navigation links
+        // Also keep support for old a[href^="#"] anchors
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
                 if (href !== '#') {
                     e.preventDefault();
-                    const target = document.querySelector(href);
-                    if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+                    smoothScrollTo(href);
                 }
             });
         });
 
-        // Active nav link highlighting
+        // Active nav link highlighting based on scroll
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('.nav-links a');
-        window.addEventListener('scroll', () => {
+        const navLinks = document.querySelectorAll('.nav-links .nav-link, .mobile-menu .nav-link');
+
+        function updateActiveByHash(hash) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-scroll') === hash) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        function updateActiveNavOnScroll() {
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 200) { current = section.getAttribute('id'); }
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
             });
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) { link.classList.add('active'); }
-            });
-        });
+            if (current) {
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-scroll') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+        window.addEventListener('scroll', updateActiveNavOnScroll, { passive: true });
 
-        // Scroll animations (generic sections)
+        // ============================================
+        // Generic scroll reveal (fade-in)
+        // ============================================
         const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -903,45 +1510,28 @@
                 }
             });
         }, observerOptions);
-        document.querySelectorAll('.section').forEach(section => { observer.observe(section); });
+        document.querySelectorAll('.section, .homeCard, .step-card, .marco-cta, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
 
-        /* ============================================
-           Ecosystem: slide-in reveal + active highlight
-           ============================================ */
+        // ============================================
+        // Ecosystem reveal (simpler than previous — reference has no active-highlight scroll effect)
+        // ============================================
         const ecoCards = document.querySelectorAll('.ecosystem-card');
-        const epDots = document.querySelectorAll('.ep-dot');
-
-        // 1) Reveal each card as it enters the viewport (the "slide" effect)
         const ecoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
             });
-        }, { threshold: 0.25 });
-        ecoCards.forEach(card => ecoObserver.observe(card));
-
-        // 2) Highlight whichever card is closest to the middle of the screen
-        function updateEcoActive() {
-            const mid = window.innerHeight / 2;
-            let best = null, bestDist = Infinity;
-            ecoCards.forEach(card => {
-                const r = card.getBoundingClientRect();
-                if (r.bottom < 0 || r.top > window.innerHeight) return;
-                const cardCenter = r.top + r.height / 2;
-                const dist = Math.abs(cardCenter - mid);
-                if (dist < bestDist) { bestDist = dist; best = card; }
-            });
-            ecoCards.forEach(c => c.classList.remove('active'));
-            epDots.forEach(d => d.classList.remove('active'));
-            if (best) {
-                best.classList.add('active');
-                const idx = best.getAttribute('data-idx');
-                const dot = [...epDots].find(d => d.getAttribute('data-idx') === idx);
-                if (dot) dot.classList.add('active');
-            }
-        }
-        window.addEventListener('scroll', updateEcoActive, { passive: true });
-        window.addEventListener('resize', updateEcoActive);
-        updateEcoActive();
+        }, { threshold: 0.2 });
+        ecoCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(24px)';
+            card.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+            ecoObserver.observe(card);
+        });
     </script>
 </body>
 </html>
