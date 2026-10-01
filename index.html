@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nubila: Fuel the MachineFi Revolution</title>
-    <meta name="description" content="Validator Nodes aren't just infrastructure—they're the beating heart of the network. Be part of the movement building a real-time hyperlocal weather data oracle.">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nubila: Fuel the MachineFi Revolution</title>
+        <meta name="description" content="Validator Nodes aren't just infrastructure—they're the beating heart of the network. Be part of the movement building a real-time hyperlocal weather data oracle.">
+        <link rel="icon" type="image/png" href="Data/logoo.PNG">
+        <link rel="apple-touch-icon" href="Data/logoo.PNG">
     <style>
         @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Light.ttf') format('truetype'); font-weight: 300; font-style: normal; font-display: swap; }
         @font-face { font-family: 'Poppins'; src: url('Data/fonts/Poppins-Regular.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
@@ -320,6 +322,110 @@
         }
         .hero-buttons { display: flex; gap: 20px; margin-top: 32px; align-items: center; justify-content: center; flex-wrap: wrap; }
         .hero-buttons .button { padding: 16px 40px; font-size: 16px; }
+
+        /* Ref / Referral Code box under hero buttons */
+        .ref-code-box {
+            max-width: 520px;
+            margin: 36px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 8px 8px 8px 24px;
+            border-radius: 999px;
+            background: rgba(18, 35, 45, 0.65);
+            border: 1px solid rgba(56, 227, 255, 0.28);
+            box-shadow: 0 10px 30px -10px rgba(56, 227, 255, 0.18), inset 0 0 0 1px rgba(255,255,255,0.03);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .ref-code-box::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 999px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56, 227, 255, 0.55) 0%, transparent 40%, transparent 60%, rgba(114, 224, 251, 0.35) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .ref-code-box:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 40px -10px rgba(56, 227, 255, 0.3), inset 0 0 0 1px rgba(255,255,255,0.06);
+            border-color: rgba(56, 227, 255, 0.45);
+        }
+        .ref-code-label {
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            color: rgba(114, 224, 251, 0.85);
+            font-weight: 600;
+            margin-right: 6px;
+            white-space: nowrap;
+        }
+        .ref-code-value {
+            flex: 1;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+            user-select: all;
+            -webkit-user-select: all;
+        }
+        .ref-code-copy {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #DFFBFF 0%, #38E3FF 100%);
+            color: #0A141C;
+            font-weight: 700;
+            font-size: 13px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+            box-shadow: 0 4px 16px rgba(56, 227, 255, 0.28);
+            position: relative;
+            z-index: 2;
+            white-space: nowrap;
+        }
+        .ref-code-copy svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+        .ref-code-copy:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 22px rgba(56, 227, 255, 0.4);
+        }
+        .ref-code-copy.copied {
+            background: linear-gradient(135deg, #32C42C 0%, #1FA31A 100%);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(50, 196, 44, 0.3);
+        }
+        @media (max-width: 560px) {
+            .ref-code-box {
+                padding: 6px 6px 6px 18px;
+                gap: 8px;
+            }
+            .ref-code-label {
+                display: none;
+            }
+            .ref-code-value { font-size: 14px; }
+            .ref-code-copy { padding: 9px 16px; font-size: 12px; }
+            .ref-code-copy .copy-text { display: none; }
+            .ref-code-copy svg { width: 17px; height: 17px; }
+        }
+
         .hero-illustration {
             display: block;
             width: 100%;
@@ -1003,9 +1109,21 @@
                 <h6>Build the World's First Decentralized Physical Perception Layer</h6>
                 <p class="hero-tagline">Run a validator node. Power the physical perception layer.</p>
                 <div class="hero-buttons">
-                    <a href="#faq"><button class="button secondary light">View Rules</button></a>
+                    <a href="#faq"><button class="button secondary light">GMGN</button></a>
                     <a href="dashboard.html"><button class="button shadow-button">Apply Now</button></a>
                 </div>
+                <!-- Referral / Promo Code Box (copy-to-clipboard) -->
+                <!-- <div class="ref-code-box" id="refCodeBox" role="button" tabindex="0" aria-label="Copy referral code">
+                    <span class="ref-code-label">Ref Code</span>
+                    <span class="ref-code-value" id="refCodeValue">YOUR-CODE-HERE</span>
+                    <button class="ref-code-copy" id="refCodeCopyBtn" type="button">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8"/>
+                            <path d="M5 15V5a2 2 0 012-2h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                        <span class="copy-text">Copy</span>
+                    </button>
+                </div> -->
                 <img
                     src="Data/landing.svg"
                     alt="Nubila physical perception network"
@@ -1299,8 +1417,8 @@
                 <h4>Your Marco. Your Asset.</h4>
                 <p>Marco isn't just a device—it's your personal gateway to the world's largest real-world data network.<br>Own the source. Capture hyperlocal weather. Start contributing from anywhere.</p>
                 <div class="hero-buttons">
-                    <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">View Specs</button></a>
-                    <a href="about-nubila.html" target="_blank" rel="noopener noreferrer"><button class="button shadow-button">Buy Marco Now</button></a>
+                    <a href="device.html" target="_blank" rel="noopener noreferrer"><button class="button secondary light">View Specs</button></a>
+                    <a href="device.html" target="_blank" rel="noopener noreferrer"><button class="button shadow-button">Buy Marco Now</button></a>
                 </div>
             </div>
         </div>
@@ -1403,10 +1521,6 @@
                 <a href="https://x.com/nubilarh?s=11" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                     <svg viewBox="0 0 512 512" fill="currentColor"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
                 </a>
-            </div>
-            <div class="footer-links">
-                <a href="#" target="_blank">Our Media Kit</a>
-                <button>Cookie settings</button>
             </div>
             <p class="footer-contact">Contact: <a href="mailto:gm@nubila.network">gm@nubila.network</a></p>
             <p class="footer-copyright">&copy; 2026 Nubila Foundation. - All Rights Reserved.</p>
@@ -1532,6 +1646,102 @@
             card.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
             ecoObserver.observe(card);
         });
+
+        // ============================================
+        // Referral / Promo Code copy-to-clipboard
+        // ============================================
+        (function () {
+            var codeBox = document.getElementById('refCodeBox');
+            var copyBtn = document.getElementById('refCodeCopyBtn');
+            var valueEl = document.getElementById('refCodeValue');
+            if (!codeBox || !copyBtn || !valueEl) return;
+
+            function doCopy() {
+                var text = (valueEl.textContent || '').trim();
+                if (!text || text === 'YOUR-CODE-HERE') {
+                    flashButton(copyBtn, 'Set Code!', true);
+                    return;
+                }
+                var done = false;
+                try {
+                    if (navigator.clipboard && window.isSecureContext) {
+                        navigator.clipboard.writeText(text).then(function () {
+                            flashButton(copyBtn, 'Copied!', false);
+                        }).catch(function () {
+                            fallbackCopy(text);
+                        });
+                        done = true;
+                    } else {
+                        fallbackCopy(text);
+                        done = true;
+                    }
+                } catch (e) {
+                    fallbackCopy(text);
+                    done = true;
+                }
+            }
+
+            function fallbackCopy(text) {
+                try {
+                    var ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    ta.style.left = '-9999px';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    var ok = document.execCommand('copy');
+                    document.body.removeChild(ta);
+                    if (ok) flashButton(copyBtn, 'Copied!', false);
+                    else flashButton(copyBtn, 'Failed', true);
+                } catch (e) {
+                    flashButton(copyBtn, 'Failed', true);
+                }
+            }
+
+            function flashButton(btn, label, isError) {
+                var svgEl = btn.querySelector('svg');
+                var textEl = btn.querySelector('.copy-text');
+                if (!svgEl || !textEl) return;
+
+                btn.classList.add('copied');
+                if (isError) {
+                    btn.style.background = 'linear-gradient(135deg, #FF7A7A 0%, #E5484D 100%)';
+                    btn.style.boxShadow = '0 4px 16px rgba(229,72,77,0.3)';
+                }
+                var originalText = textEl.textContent;
+                var originalSvg = svgEl.outerHTML;
+                textEl.textContent = label;
+                svgEl.style.display = 'none';
+
+                setTimeout(function () {
+                    btn.classList.remove('copied');
+                    btn.style.background = '';
+                    btn.style.boxShadow = '';
+                    textEl.textContent = originalText;
+                    // put back svg
+                    if (!btn.querySelector('svg')) {
+                        btn.insertAdjacentHTML('afterbegin', originalSvg);
+                    } else {
+                        btn.querySelector('svg').style.display = '';
+                    }
+                }, 1800);
+            }
+
+            copyBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                doCopy();
+            });
+            // Click anywhere on the box also triggers copy
+            codeBox.addEventListener('click', function () { doCopy(); });
+            codeBox.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    doCopy();
+                }
+            });
+        })();
     </script>
 </body>
 </html>

@@ -357,6 +357,73 @@
         @media (max-width: 640px) { .welcome p { font-size: 15px; } }
 
         /* ================================
+           GLOBAL TOUR VIDEO SECTION
+           ================================ */
+        .global-tour-video {
+            padding: 80px 0 40px;
+        }
+        @media (max-width: 640px) { .global-tour-video { padding: 60px 0 30px; } }
+        .video-wrap {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(56,227,255,0.18);
+            box-shadow: 0 20px 70px -20px rgba(56,227,255,0.18), inset 0 0 0 1px rgba(255,255,255,0.04);
+            background: rgba(8,20,30,0.6);
+            aspect-ratio: 16/9;
+        }
+        .video-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56,227,255,0.45) 0%, transparent 40%, transparent 60%, rgba(114,224,251,0.3) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: 2;
+        }
+        .video-wrap video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+        }
+        .video-label {
+            text-align: center;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            color: var(--tint-blue-2);
+            margin-bottom: 22px;
+            font-weight: 500;
+        }
+        .video-title {
+            text-align: center;
+            font-size: 34px;
+            font-weight: 700;
+            line-height: 1.25;
+            margin: 0 0 36px;
+            letter-spacing: -0.3px;
+        }
+        .video-title span {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        @media (max-width: 640px) {
+            .video-title { font-size: 22px; margin-bottom: 24px; }
+            .video-label { font-size: 11px; letter-spacing: 1.3px; margin-bottom: 16px; }
+        }
+
+        /* ================================
            SECTION SHARED STYLES
            ================================ */
         .section {
@@ -817,7 +884,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
-                <li><a href="#device">Device <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
+                <li><a href="device.html">Device <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
                 <li><a href="#data">Data <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
                 <li><a href="#map">Map <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
                 <li><a href="https://nubila.gitbook.io/nubila" target="_blank" rel="noreferrer noopener">Docs <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></a></li>
@@ -840,7 +907,7 @@
     </nav>
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">Home</a>
-        <a href="#device">Device</a>
+        <a href="device.html">Device</a>
         <a href="#data">Data</a>
         <a href="#map">Map</a>
         <a href="https://nubila.gitbook.io/nubila" target="_blank" rel="noreferrer noopener">Docs</a>
@@ -858,7 +925,7 @@
             <p class="hero-desc">Building a decentralized network that transforms real-world signals into trusted, machine-readable intelligence</p>
             <div class="hero-buttons">
                 <a href="https://play.google.com/store/apps/details?id=ai.nubila.weatherapp" target="_blank" rel="noreferrer noopener" class="btn btn-primary">Download App</a>
-                <a href="#device" class="btn btn-secondary">Get a Weather Station</a>
+                <a href="device.html" class="btn btn-secondary">Get a Weather Station</a>
             </div>
 
             <!-- Hero visual (big central illustration) -->
@@ -975,6 +1042,26 @@
     <section class="welcome container">
         <h1>Welcome to <span class="gradient">Nubila</span></h1>
         <p>Nubila is building the Physical Data Infrastructure for AI. We decentralize the capture and validation of real-world physical signals — turning them into trusted, machine-readable intelligence that powers AI agents, prediction markets, financial systems, and global industries.</p>
+    </section>
+
+    <!-- ============================================================
+         NUBILA GLOBAL TOUR VIDEO
+         ============================================================ -->
+    <section class="global-tour-video container">
+        <div class="video-label">Watch Our Global Tour</div>
+        <h2 class="video-title">Experience Nubila's <span>Worldwide Network</span></h2>
+        <div class="video-wrap fade-in-up">
+            <video
+                id="globalTourVideo"
+                src="Data/NUBILA-global-tour.mp4"
+                poster=""
+                controls
+                playsinline
+                preload="metadata"
+            >
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </section>
 
     <!-- ============================================================
@@ -1252,7 +1339,7 @@
     <!-- ============================================================
          TRUSTED BY
          ============================================================ -->
-    <section class="section">
+    <!-- <section class="section">
         <div class="container">
             <div class="logos-section-head">Trusted by</div>
             <div class="logos-row">
@@ -1284,7 +1371,7 @@
                 <div class="logo-cell"><div class="logo-text">Partner&nbsp;12</div></div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- ============================================================
          FOOTER

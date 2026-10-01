@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Marco: Solar Weather Station for ESG &amp; AI Data | Nubila</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Asap:wght@400;500;600;700&amp;family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0A141C;
+            --bg-card: #12232D;
+            --tint-blue: #38E3FF;
+            --tint-blue-2: #72E0FB;
+            --text-white: #FFFFFF;
+            --text-dim: rgba(255,255,255,0.7);
+            --text-dim-2: rgba(255,255,255,0.5);
+            --border-white: rgba(255,255,255,0.1);
+            --border-blue: rgba(56,227,255,0.3);
+            --gradient-text: linear-gradient(135deg, #DFFBFF 0%, #38E3FF 100%);
+            --gradient-btn: linear-gradient(135deg, #DFFBFF 0%, #38E3FF 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(ellipse 900px 600px at 30% 0%, rgba(56,227,255,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 1000px 800px at 80% 60%, rgba(56,227,255,0.04) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.35;
+            mix-blend-mode: overlay;
+            background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 4px 4px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .section { padding: 120px 0 0; position: relative; z-index: 5; }
+        @media (max-width: 640px) { .section { padding-top: 80px; } }
+
+        .section-heading-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--tint-blue-2);
+            text-align: center;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+        .section-heading-title {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.4px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .section-heading-title.center { text-align: center; }
+        @media (max-width: 640px) { .section-heading-title { font-size: 28px; } }
+        .section-heading-sub {
+            text-align: center;
+            color: rgba(255,255,255,0.72);
+            max-width: 720px;
+            margin: 0 auto;
+            font-size: 17px;
+            line-height: 1.65;
+            font-family: 'Asap', sans-serif;
+        }
+        @media (max-width: 640px) { .section-heading-sub { font-size: 15px; } }
+
+        /* ================================
+           NAVIGATION
+           ================================ */
+        .nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 18px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            background: rgba(10,20,28,0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .nav-left { display: flex; align-items: center; gap: 40px; }
+        .nav-logo img { height: 30px; }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            list-style: none;
+        }
+        .nav-links > li { position: relative; }
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+            display: inline-flex; align-items: center; gap: 4px;
+        }
+        .nav-links a:hover { color: #fff; }
+        .nav-links a.active { color: var(--tint-blue-2); }
+
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .nav-right a.link {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-right a.link:hover { color: #fff; }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 999px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--gradient-btn);
+            color: #0A141C;
+            box-shadow: 0 4px 20px rgba(56,227,255,0.25);
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 28px rgba(56,227,255,0.4);
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.35);
+        }
+        .btn-secondary:hover {
+            border-color: var(--tint-blue-2);
+            background: rgba(56,227,255,0.08);
+        }
+        .btn-accent {
+            background: transparent;
+            color: var(--tint-blue-2);
+            border: 1px solid rgba(114,224,251,0.45);
+        }
+        .btn-accent:hover { background: rgba(56,227,255,0.1); color: #fff; }
+
+        /* Mobile nav */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            padding: 14px 18px;
+            z-index: 999;
+            background: rgba(10,20,28,0.92);
+            backdrop-filter: blur(14px);
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .mobile-nav img { height: 24px; }
+        .hamburger {
+            display: flex; flex-direction: column; gap: 5px;
+            cursor: pointer; padding: 8px;
+            width: 40px; height: 40px;
+            align-items: center; justify-content: center;
+        }
+        .hamburger span {
+            display: block; width: 24px; height: 2px;
+            background: #fff; border-radius: 2px;
+            transition: transform 0.25s, opacity 0.2s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed; top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: var(--bg-dark);
+            z-index: 998;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 100px 28px 40px;
+            gap: 20px;
+            overflow-y: auto;
+        }
+        body.mobile-menu-open { overflow: hidden; }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            width: 100%;
+        }
+
+        @media (max-width: 1023px) {
+            .nav { display: none; }
+            .mobile-nav { display: flex; }
+        }
+
+        /* =========================================
+           DEVICE HERO (MARCO)
+           ========================================= */
+        .device-hero {
+            padding: 150px 0 80px;
+            position: relative;
+            overflow: hidden;
+            z-index: 5;
+        }
+        @media (max-width: 1023px) { .device-hero { padding-top: 100px; } }
+
+        .device-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 70%;
+            background:
+                radial-gradient(ellipse 700px 400px at 50% 10%, rgba(56,227,255,0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-trust-tag {
+            font-size: 19px;
+            font-style: italic;
+            color: rgba(255,255,255,0.72);
+            text-align: center;
+            font-family: 'Asap', sans-serif;
+            margin-bottom: 28px;
+            letter-spacing: 0.2px;
+        }
+        @media (max-width: 640px) { .hero-trust-tag { font-size: 15px; } }
+
+        .device-hero h2.intro-label {
+            font-size: 30px;
+            font-weight: 300;
+            text-align: center;
+            color: #fff;
+            margin-bottom: 14px;
+            letter-spacing: -0.2px;
+        }
+        .device-hero h2.intro-label .marco-name {
+            font-weight: 700;
+            font-size: 52px;
+            letter-spacing: -1px;
+            background: linear-gradient(135deg, #fff 20%, #cfe8f0 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        @media (max-width: 640px) {
+            .device-hero h2.intro-label { font-size: 20px; }
+            .device-hero h2.intro-label .marco-name { font-size: 34px; }
+        }
+
+        .device-hero h1.main-title {
+            font-size: 58px;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.8px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .device-hero h1.main-title span {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        @media (max-width: 640px) { .device-hero h1.main-title { font-size: 34px; } }
+
+        .hero-desc {
+            max-width: 820px;
+            margin: 0 auto;
+            color: rgba(255,255,255,0.75);
+            font-size: 17px;
+            line-height: 1.7;
+            font-family: 'Asap', sans-serif;
+            text-align: center;
+        }
+        @media (max-width: 640px) { .hero-desc { font-size: 15px; } }
+
+        .hero-feature-bullets {
+            max-width: 820px;
+            margin: 24px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .hero-feature-bullets div {
+            color: rgba(255,255,255,0.78);
+            font-size: 15px;
+            line-height: 1.6;
+            font-family: 'Asap', sans-serif;
+            padding-left: 26px;
+            position: relative;
+        }
+        .hero-feature-bullets div::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--tint-blue-2);
+            font-weight: 700;
+        }
+        .hero-cta {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .btn-lg {
+            padding: 16px 40px;
+            font-size: 15px;
+            border-radius: 999px;
+        }
+
+        /* Marco Hero Product Showcase */
+        .marco-showcase {
+            margin: 80px auto 0;
+            max-width: 900px;
+            position: relative;
+        }
+        .marco-showcase-inner {
+            position: relative;
+            border-radius: 32px;
+            overflow: hidden;
+            padding: 60px 40px;
+            background:
+                radial-gradient(ellipse 500px 300px at 50% 20%, rgba(56,227,255,0.12), transparent 60%),
+                linear-gradient(180deg, rgba(18,35,45,0.7) 0%, rgba(12,25,35,0.9) 100%);
+            border: 1px solid rgba(56,227,255,0.18);
+            box-shadow: 0 40px 90px -30px rgba(56,227,255,0.25);
+        }
+        .marco-showcase-inner::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 32px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(56,227,255,0.5) 0%, transparent 50%, rgba(114,224,251,0.35) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .marco-visual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        @media (max-width: 900px) { .marco-visual-grid { grid-template-columns: 1fr; } }
+
+        .marco-img-wrap {
+            position: relative;
+            aspect-ratio: 1/1;
+            border-radius: 24px;
+            overflow: hidden;
+            background: linear-gradient(180deg, rgba(90,180,220,0.15) 0%, rgba(50,100,130,0.25) 100%);
+            border: 1px solid rgba(56,227,255,0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .marco-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .marco-fallback svg { width: 100%; height: auto; }
+
+        .marco-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .metric-card {
+            background: rgba(14,30,40,0.75);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 16px;
+            padding: 20px 18px;
+        }
+        .metric-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            color: var(--tint-blue-2);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+        .metric-unit {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            margin-left: 2px;
+            font-weight: 500;
+        }
+
+        /* =========================================
+           WHAT MAKES MARCO DIFFERENT (FEATURES)
+           ========================================= */
+        .features-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 900px) { .features-grid { grid-template-columns: 1fr; } }
+
+        .feature-card {
+            background: rgba(18,35,45,0.65);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 22px;
+            padding: 32px 28px;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 50px -20px rgba(56,227,255,0.3);
+        }
+        .feature-icon {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            background: rgba(56,227,255,0.08);
+            border: 1px solid rgba(114,224,251,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 22px;
+        }
+        .feature-icon svg { width: 28px; height: 28px; }
+        .feature-card h4 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .feature-card p {
+            color: rgba(255,255,255,0.68);
+            font-size: 14.5px;
+            line-height: 1.65;
+            font-family: 'Asap', sans-serif;
+        }
+
+        /* MEASUREMENT STRIP */
+        .measure-strip {
+            margin-top: 40px;
+            padding: 36px 28px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, rgba(56,227,255,0.08) 0%, rgba(18,35,45,0.8) 100%);
+            border: 1px solid rgba(56,227,255,0.18);
+        }
+        .measure-strip .ms-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            color: var(--tint-blue-2);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .measure-items {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 900px) { .measure-items { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 500px) { .measure-items { grid-template-columns: 1fr; } }
+        .measure-item h5 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #fff;
+        }
+        .measure-item p {
+            color: rgba(255,255,255,0.55);
+            font-size: 13px;
+            font-family: 'Asap', sans-serif;
+        }
+
+        /* =========================================
+           TECHNICAL SPECS
+           ========================================= */
+        .specs-shell {
+            position: relative;
+            border-radius: 28px;
+            padding: 52px 48px;
+            margin-top: 56px;
+            background:
+                radial-gradient(ellipse 500px 300px at 20% 0%, rgba(56,227,255,0.08), transparent 60%),
+                rgba(14,28,36,0.7);
+            border: 1px solid rgba(56,227,255,0.16);
+            overflow: hidden;
+        }
+        .specs-shell::before {
+            content: '';
+            position: absolute;
+            top: -120px; right: -80px;
+            width: 360px; height: 360px;
+            background: radial-gradient(circle, rgba(56,227,255,0.1), transparent 60%);
+            pointer-events: none;
+        }
+        @media (max-width: 640px) { .specs-shell { padding: 36px 24px; } }
+
+        .specs-shell h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 36px;
+            letter-spacing: -0.2px;
+        }
+
+        .spec-block { margin-bottom: 36px; }
+        .spec-block:last-child { margin-bottom: 0; }
+        .spec-block h5 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.3px;
+            color: var(--tint-blue-2);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .spec-item {
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            gap: 20px;
+        }
+        .spec-item:last-child { border-bottom: none; }
+        @media (max-width: 768px) { .spec-item { grid-template-columns: 1fr; gap: 6px; } }
+        .spec-item h6 {
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.88);
+        }
+        .spec-item p {
+            color: rgba(255,255,255,0.65);
+            font-size: 14.5px;
+            line-height: 1.6;
+            font-family: 'Asap', sans-serif;
+        }
+
+        /* =========================================
+           TESTIMONIALS
+           ========================================= */
+        .testimonial-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        @media (max-width: 900px) { .testimonial-grid { grid-template-columns: 1fr; } }
+        .testimonial-card {
+            background: rgba(18,35,45,0.65);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 22px;
+            padding: 32px 28px;
+            display: flex;
+            flex-direction: column;
+            min-height: 320px;
+        }
+        .t-quote {
+            color: var(--tint-blue-2);
+            font-size: 32px;
+            line-height: 1;
+            margin-bottom: 14px;
+            opacity: 0.6;
+        }
+        .testimonial-card h5 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .testimonial-card p.t-text {
+            color: rgba(255,255,255,0.72);
+            font-size: 14.5px;
+            line-height: 1.65;
+            font-family: 'Asap', sans-serif;
+            flex: 1;
+        }
+        .t-who { margin-top: 22px; }
+        .t-who h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .t-who p {
+            font-size: 12px;
+            color: var(--tint-blue-2);
+            letter-spacing: 0.3px;
+            font-weight: 500;
+        }
+
+        /* =========================================
+           DISTRIBUTOR / FAQ / CONTACT / POLICY
+           ========================================= */
+        .distributor-banner {
+            margin-top: 56px;
+            border-radius: 24px;
+            padding: 52px 48px;
+            background:
+                linear-gradient(135deg, rgba(56,227,255,0.12) 0%, rgba(18,35,45,0.9) 60%),
+                radial-gradient(circle at 80% 20%, rgba(114,224,251,0.15), transparent 60%);
+            border: 1px solid rgba(56,227,255,0.2);
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        @media (max-width: 900px) {
+            .distributor-banner { grid-template-columns: 1fr; padding: 40px 28px; }
+        }
+        .distributor-banner h2 {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            line-height: 1.15;
+            margin-bottom: 14px;
+        }
+        .distributor-banner h2 span {
+            background: var(--gradient-text);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .distributor-banner p {
+            color: rgba(255,255,255,0.72);
+            font-size: 16px;
+            line-height: 1.65;
+            font-family: 'Asap', sans-serif;
+            margin-bottom: 24px;
+        }
+        .distributor-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+        @media (max-width: 640px) { .distributor-cta .btn { flex: 1; } }
+        .distributor-visual {
+            aspect-ratio: 1/1;
+            max-width: 360px;
+            margin-left: auto;
+            border-radius: 20px;
+            background: rgba(10,20,28,0.6);
+            border: 1px solid rgba(56,227,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .distributor-visual img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        /* FAQ */
+        .faq-list {
+            margin-top: 56px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .faq-item {
+            padding: 26px 32px;
+            background: rgba(18,35,45,0.65);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .faq-item h5 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--tint-blue-2);
+            margin-bottom: 10px;
+        }
+        .faq-item p {
+            color: rgba(255,255,255,0.72);
+            font-size: 15px;
+            line-height: 1.7;
+            font-family: 'Asap', sans-serif;
+        }
+
+        /* Contact */
+        .contact-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+        .contact-card {
+            padding: 36px 32px;
+            background: rgba(18,35,45,0.65);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 22px;
+            text-align: center;
+        }
+        .contact-card .c-icon {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            margin: 0 auto 22px;
+            background: rgba(56,227,255,0.08);
+            border: 1px solid rgba(114,224,251,0.35);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .contact-card .c-icon svg { width: 24px; height: 24px; }
+        .contact-card h5 {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--tint-blue-2);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .contact-card a, .contact-card p {
+            color: #fff;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            word-break: break-word;
+        }
+        .contact-card a:hover { color: var(--tint-blue-2); }
+
+        /* Return Policy */
+        .policy-shell {
+            margin-top: 56px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 48px;
+            background: rgba(18,35,45,0.55);
+            border: 1px solid rgba(56,227,255,0.14);
+            border-radius: 24px;
+        }
+        @media (max-width: 640px) { .policy-shell { padding: 32px 24px; } }
+        .policy-shell h3 {
+            font-size: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+            color: var(--tint-blue-2);
+            margin-bottom: 28px;
+        }
+        .policy-clause { margin-bottom: 28px; }
+        .policy-clause:last-child { margin-bottom: 0; }
+        .policy-clause h5 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .policy-clause p {
+            color: rgba(255,255,255,0.72);
+            font-size: 14.5px;
+            line-height: 1.7;
+            font-family: 'Asap', sans-serif;
+            margin-bottom: 10px;
+        }
+        .policy-clause ul {
+            list-style: none;
+            padding: 0;
+        }
+        .policy-clause li {
+            color: rgba(255,255,255,0.7);
+            font-size: 14.5px;
+            line-height: 1.7;
+            font-family: 'Asap', sans-serif;
+            padding-left: 22px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+        .policy-clause li::before {
+            content: '•';
+            position: absolute;
+            left: 0; top: 0;
+            color: var(--tint-blue-2);
+            font-weight: 700;
+        }
+        .policy-clause a {
+            color: var(--tint-blue-2);
+            text-decoration: none;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        .site-footer {
+            margin-top: 140px;
+            padding: 64px 0 36px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            background: linear-gradient(180deg, transparent 0%, rgba(56,227,255,0.03) 100%);
+            position: relative;
+            z-index: 5;
+        }
+        .footer-top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .footer-logo-big img { height: 44px; max-width: 220px; }
+        .footer-social {
+            display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+        }
+        .footer-social a {
+            width: 42px; height: 42px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            display: inline-flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .footer-social a:hover {
+            color: #fff;
+            border-color: var(--tint-blue-2);
+            background: rgba(56,227,255,0.08);
+        }
+        .footer-social a svg { width: 18px; height: 18px; }
+
+        .footer-store-links {
+            display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+        }
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.12);
+            text-decoration: none;
+            color: #fff;
+            min-width: 200px;
+            transition: all 0.25s;
+        }
+        .store-btn:hover {
+            border-color: var(--tint-blue-2);
+            background: rgba(56,227,255,0.08);
+        }
+        .store-btn svg { width: 30px; height: 30px; flex-shrink: 0; }
+        .store-btn div { display: flex; flex-direction: column; text-align: left; }
+        .store-btn .sb-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            font-weight: 500;
+        }
+        .store-btn .sb-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .media-kit-link { margin-top: 8px; }
+        .media-kit-link a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .media-kit-link a:hover { color: var(--tint-blue-2); }
+
+        .footer-legal {
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 20px 28px;
+            margin-bottom: 24px;
+        }
+        .footer-legal a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .footer-legal a:hover { color: #fff; }
+
+        .footer-disclaimer {
+            text-align: center;
+            color: rgba(255,255,255,0.45);
+            font-size: 12px;
+            line-height: 1.6;
+            max-width: 760px;
+            margin: 0 auto 20px;
+            font-family: 'Asap', sans-serif;
+        }
+        .footer-copyright {
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .fade-in-up { animation: fadeInUp 0.5s ease both; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================================
+         NAVIGATION (DESKTOP)
+         ============================================================ -->
+    <nav class="nav">
+        <div class="nav-left">
+            <a href="index.html" class="nav-logo" aria-label="Nubila Home">
+                <img src="Data/logoo.PNG" alt="Nubila" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 32%22%3E%3Ctext x=%220%22 y=%2224%22 font-family=%22Poppins,sans-serif%22 font-size=%2222%22 font-weight=%22700%22 fill=%22white%22%3Enubila%3C/text%3E%3C/svg%3E';">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="device.html" class="active">Device</a></li>
+                <li><a href="about-nubila.html#data">Data</a></li>
+                <li><a href="about-nubila.html#map">Map</a></li>
+                <li><a href="https://nubila.gitbook.io/nubila" target="_blank" rel="noreferrer noopener">Docs</a></li>
+                <li><a href="about-nubila.html#app">App</a></li>
+            </ul>
+        </div>
+        <div class="nav-right">
+            <a href="dashboard.html" class="btn btn-primary">Explore Network</a>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         MOBILE NAV
+         ============================================================ -->
+    <div class="mobile-nav">
+        <a href="index.html" aria-label="Nubila Home">
+            <img src="Data/logoo.PNG" alt="Nubila" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 32%22%3E%3Ctext x=%220%22 y=%2224%22 font-family=%22Poppins,sans-serif%22 font-size=%2222%22 font-weight=%22700%22 fill=%22white%22%3Enubila%3C/text%3E%3C/svg%3E';">
+        </a>
+        <div class="hamburger" id="hamburger" role="button" aria-label="Menu" tabindex="0">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="device.html">Device</a>
+        <a href="about-nubila.html#data">Data</a>
+        <a href="about-nubila.html#map">Map</a>
+        <a href="https://nubila.gitbook.io/nubila" target="_blank" rel="noreferrer noopener">Docs</a>
+        <a href="about-nubila.html#app">App</a>
+        <a href="dashboard.html" style="margin-top:12px" class="btn btn-primary">Explore Network</a>
+    </div>
+
+    <!-- ============================================================
+         MARCO HERO SECTION
+         ============================================================ -->
+    <section class="device-hero">
+        <div class="container">
+            <p class="hero-trust-tag">Trusted by thousands of home users, farmers, educators, and weather enthusiasts worldwide</p>
+
+            <h2 class="intro-label">Introducing <span class="marco-name">marco</span> &mdash;</h2>
+            <h1 class="main-title">
+                <span>The Personal Weather Station</span><br>
+                <span>of the Future</span>
+            </h1>
+
+            <p class="hero-desc">
+                Marco is a solar powered weather station that allows you to track local weather with
+                hyperlocal accuracy and earn real rewards for contributing data to the Nubila network.
+            </p>
+
+            <div class="hero-feature-bullets">
+                <div>Easy setup, solar-powered, no charging needed</div>
+                <div>Free mobile app &ndash; check weather from anywhere in the world</div>
+                <div>Earn passive rewards by sharing real-time data with the network</div>
+                <div>One-time purchase, no subscription, no hidden fees</div>
+            </div>
+
+            <div class="hero-cta">
+                <a href="#buy-section" class="btn btn-primary btn-lg">Buy Marco &ndash; Ships Today</a>
+            </div>
+
+            <!-- Marco Showcase -->
+            <div class="marco-showcase fade-in-up" id="buy-section">
+                <div class="marco-showcase-inner">
+                    <div class="marco-visual-grid">
+                        <div class="marco-img-wrap marco-fallback">
+                            <img src="Data/Marco.png" alt="Marco Weather Station"
+                                 onerror="this.onerror=null;this.style.display='none';this.parentNode.innerHTML=`
+                            <svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'>
+                              <defs>
+                                <linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'>
+                                  <stop offset='0' stop-color='rgba(60,110,140,0.6)'/>
+                                  <stop offset='1' stop-color='rgba(20,40,60,0.95)'/>
+                                </linearGradient>
+                              </defs>
+                              <rect width='400' height='400' fill='url(#sky)'/>
+                              <!-- Pole -->
+                              <rect x='188' y='200' width='24' height='170' fill='#8B7355' stroke='rgba(0,0,0,0.35)' stroke-width='1'/>
+                              <!-- Arm -->
+                              <rect x='100' y='230' width='200' height='22' fill='#9C8064' stroke='rgba(0,0,0,0.3)' stroke-width='1' rx='4'/>
+                              <!-- Solar Panel -->
+                              <g transform='translate(220 110)'>
+                                <rect x='0' y='0' width='120' height='90' rx='6' fill='#0E1E2B' stroke='rgba(56,227,255,0.4)' stroke-width='1.4'/>
+                                <line x1='0' y1='30' x2='120' y2='30' stroke='rgba(56,227,255,0.18)'/>
+                                <line x1='0' y1='60' x2='120' y2='60' stroke='rgba(56,227,255,0.18)'/>
+                                <line x1='40' y1='0' x2='40' y2='90' stroke='rgba(56,227,255,0.18)'/>
+                                <line x1='80' y1='0' x2='80' y2='90' stroke='rgba(56,227,255,0.18)'/>
+                                <circle cx='60' cy='45' r='8' fill='#38E3FF' opacity='0.85'/>
+                                <rect x='54' y='88' width='12' height='28' fill='white' opacity='0.92'/>
+                              </g>
+                              <!-- Sensor Tower -->
+                              <g transform='translate(120 160)'>
+                                <rect x='0' y='40' width='48' height='6' fill='transparent'/>
+                                <!-- Cups -->
+                                <circle cx='8' cy='0' r='6' fill='#243849'/>
+                                <circle cx='40' cy='0' r='6' fill='#243849'/>
+                                <circle cx='24' cy='-18' r='6' fill='#243849'/>
+                                <line x1='24' y1='0' x2='8' y2='0' stroke='#243849' stroke-width='2'/>
+                                <line x1='24' y1='0' x2='40' y2='0' stroke='#243849' stroke-width='2'/>
+                                <line x1='24' y1='0' x2='24' y2='-18' stroke='#243849' stroke-width='2'/>
+                                <!-- Body -->
+                                <rect x='8' y='10' width='32' height='60' rx='8' fill='#E9EEF2' stroke='rgba(0,0,0,0.15)' stroke-width='1'/>
+                                <rect x='12' y='22' width='24' height='4' rx='2' fill='#243849'/>
+                                <rect x='12' y='32' width='24' height='4' rx='2' fill='#243849'/>
+                                <rect x='12' y='42' width='24' height='4' rx='2' fill='#243849'/>
+                                <rect x='12' y='52' width='24' height='4' rx='2' fill='#243849'/>
+                              </g>
+                            </svg>`;">
+                        </div>
+                        <div class="marco-metrics">
+                            <div class="metric-card">
+                                <div class="metric-label">Operating Range</div>
+                                <div class="metric-value">-40<span class="metric-unit">°C → 80°C</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Connectivity</div>
+                                <div class="metric-value" style="font-size:20px">Wi-Fi 2.4G<span class="metric-unit"><br>+ BLE 5.0</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Battery Life</div>
+                                <div class="metric-value">3+<span class="metric-unit"> days (solar)</span></div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label">Protection</div>
+                                <div class="metric-value">IP56<span class="metric-unit"> dustproof &amp; waterproof</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         WHAT MAKES MARCO DIFFERENT
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-heading-label">Why Marco</div>
+            <h2 class="section-heading-title">What Makes <span style="background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;">Marco Different?</span></h2>
+            <p class="section-heading-sub">
+                Marco is more than a weather tracker &mdash; it&rsquo;s a personal weather station that
+                powers a global network. Get real-time hyperlocal data, earn rewards, and contribute to
+                AI, ESG, and prediction markets &mdash; all from your backyard.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="10" r="5" stroke="#72E0FB" stroke-width="1.6"/>
+                            <path d="M9 10h10M14 5v10M17.5 6.5l-7 7M17.5 13.5l-7-7" stroke="#72E0FB" stroke-width="1.2" opacity="0.7"/>
+                            <path d="M6 20h16M8 24h12M9.5 20l-2 4M18.5 20l2 4" stroke="#FFC44F" stroke-width="1.4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Track What Matters</h4>
+                    <p>Marco measures and tracks temperature, wind, humidity, UV, and air pressure &mdash; with industry-grade sensors tuned for hyperlocal accuracy in your backyard.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="14" r="10" stroke="#72E0FB" stroke-width="1.6"/>
+                            <circle cx="14" cy="14" r="3" fill="#FFC44F"/>
+                            <path d="M14 4v4M14 20v4M4 14h4M20 14h4M6.9 6.9l2.8 2.8M18.3 18.3l2.8 2.8M21.1 6.9l-2.8 2.8M9.7 18.3l-2.8 2.8" stroke="#72E0FB" stroke-width="1.3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Solar-Powered &amp; Maintenance-Free</h4>
+                    <p>No charging, no plugging in. Just install it, and Marco runs on sunlight all day. Built-in battery keeps it going for 3+ days, even during winter.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="3" y="5" width="22" height="16" rx="3" stroke="#72E0FB" stroke-width="1.6"/>
+                            <path d="M5 10h18M9 4v2M19 4v2M7 22v2M14 22v2M21 22v2" stroke="#72E0FB" stroke-width="1.3" stroke-linecap="round"/>
+                            <circle cx="18" cy="18" r="1.6" fill="#32C42C"/>
+                        </svg>
+                    </div>
+                    <h4>Real-Time Sync to Your Phone</h4>
+                    <p>Instant updates via WiFi or Bluetooth &mdash; so you can monitor your local weather conditions and track rewards from anywhere in the world.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14 3l2.5 5.5L22 9.5l-4.2 4L18.8 20 14 17l-4.8 3 1-6.5L6 9.5l5.5-1z" stroke="#72E0FB" stroke-width="1.5" fill="none" stroke-linejoin="round"/>
+                            <path d="M5 24h18" stroke="#FFC44F" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>Built for All Weather</h4>
+                    <p>Built with a durable metal body and advanced outdoor-grade plastics, it&rsquo;s engineered to survive snow, storms, heat, and dust with IP56 protection.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="14" cy="14" r="9" stroke="#72E0FB" stroke-width="1.6"/>
+                            <path d="M14 9v5l3.5 2.5" stroke="#72E0FB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="14" cy="14" r="1" fill="#38E3FF"/>
+                        </svg>
+                    </div>
+                    <h4>Rewards That Give Back</h4>
+                    <p>As your station collects real-time weather data, you contribute to a global collective intelligence network &mdash; and earn $NB rewards for every contribution.</p>
+                </div>
+                <div class="feature-card fade-in-up">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 20V10a4 4 0 014-4h8a4 4 0 014 4v10a2 2 0 01-2 2H8a2 2 0 01-2-2z" stroke="#72E0FB" stroke-width="1.6"/>
+                            <path d="M6 14h16M10 8v-2M18 8v-2" stroke="#72E0FB" stroke-width="1.3" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h4>One-Time Purchase, No Subscription.</h4>
+                    <p>You own it. No hidden fees, no monthly plans. Marco is yours to install, use, and enjoy &mdash; and keep all the rewards it generates for you.</p>
+                </div>
+            </div>
+
+            <!-- Measuring strip -->
+            <div class="measure-strip fade-in-up">
+                <div class="ms-label">Measuring Capabilities</div>
+                <div class="measure-items">
+                    <div class="measure-item">
+                        <h5>Temperature</h5>
+                        <p>-40°C to 80°C<br>accuracy ±0.5°C</p>
+                    </div>
+                    <div class="measure-item">
+                        <h5>Humidity</h5>
+                        <p>0% to 100% RH<br>accuracy ±4%</p>
+                    </div>
+                    <div class="measure-item">
+                        <h5>Air Pressure</h5>
+                        <p>300–1100 hPa<br>accuracy ±1 hPa</p>
+                    </div>
+                    <div class="measure-item">
+                        <h5>Wind Speed</h5>
+                        <p>0–40 m/s<br>accuracy ±10%</p>
+                    </div>
+                    <div class="measure-item">
+                        <h5>UV Levels</h5>
+                        <p>UVI 0 to 11<br>accuracy ±1 level</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         TECHNICAL SPECIFICATIONS
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-heading-label">In The Box</div>
+            <h2 class="section-heading-title">Technical <span style="background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;">Specifications</span></h2>
+
+            <div class="specs-shell fade-in-up">
+                <h3>Technical Specifications</h3>
+
+                <div class="spec-block">
+                    <h5>Measurement Capabilities</h5>
+                    <div class="spec-item">
+                        <h6>Temperature:</h6>
+                        <p>-40°C to 80°C, accuracy ±0.5°C</p>
+                    </div>
+                    <div class="spec-item">
+                        <h6>Relative Humidity:</h6>
+                        <p>0% to 100%, accuracy ±4% (20%&ndash;80% RH)</p>
+                    </div>
+                    <div class="spec-item">
+                        <h6>Air Pressure:</h6>
+                        <p>300hPa to 1100hPa, accuracy ±1hPa (At 25°C room temperature)</p>
+                    </div>
+                    <div class="spec-item">
+                        <h6>Wind Speed:</h6>
+                        <p>0&ndash;40 m/s, accuracy ±10% or 1 m/s</p>
+                    </div>
+                    <div class="spec-item">
+                        <h6>UV Levels:</h6>
+                        <p>UVI 0 to 11, accuracy ±1 level</p>
+                    </div>
+                </div>
+
+                <div class="spec-block">
+                    <h5>Communication</h5>
+                    <div class="spec-item">
+                        <h6>Connectivity:</h6>
+                        <p>Bluetooth BLE 5.0, Wi-Fi 2.4G</p>
+                    </div>
+                </div>
+
+                <div class="spec-block">
+                    <h5>Power Supply</h5>
+                    <div class="spec-item">
+                        <h6>Battery &amp; Solar:</h6>
+                        <p>Built-in 4000mAh lithium battery with a runtime of 3+ days. Rechargeable via the integrated solar panel for zero-maintenance all-year operation.</p>
+                    </div>
+                </div>
+
+                <div class="spec-block">
+                    <h5>Data Storage</h5>
+                    <div class="spec-item">
+                        <h6>On-Board:</h6>
+                        <p>Stores data for 25 days, with default Wi-Fi recording interval of 5 minutes and Bluetooth recording interval of 1 minute.</p>
+                    </div>
+                </div>
+
+                <div class="spec-block">
+                    <h5>Protection Rating</h5>
+                    <div class="spec-item">
+                        <h6>Durability:</h6>
+                        <p>IP56 (dustproof and waterproof)</p>
+                    </div>
+                </div>
+
+                <div class="spec-block">
+                    <h5>Operating Conditions</h5>
+                    <div class="spec-item">
+                        <h6>Operating temperature:</h6>
+                        <p>-40°C to 80°C &mdash; engineered to keep capturing data through blazing summers, frigid winters, and stormy weather.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         TESTIMONIALS
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-heading-label">User Stories</div>
+            <h2 class="section-heading-title">Testimonials</h2>
+
+            <div class="testimonial-grid">
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>Passive income meets real-time weather</h5>
+                    <p class="t-text">One of the coolest products I have ordered thus far. No onboarding fees, no contracts. I put Marco on my roof, connected to the app, and it started pulling rewards within the first hour. The data is way more accurate than any generic weather app I used before.</p>
+                    <div class="t-who">
+                        <h4>Ryan H.</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>Replaced my weather app on day one</h5>
+                    <p class="t-text">Very easy to set up. High quality miner easy to use and it started earning right away. The kids love checking the wind and UV levels before soccer practice. Honestly shocked how solid this station feels for the price.</p>
+                    <div class="t-who">
+                        <h4>George M.</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>One of the easiest setups ever</h5>
+                    <p class="t-text">Hands down one of the easiest setups I have had. Been in a lot of projects but Nubila is the first where the hardware matches the hype. Solar panel keeps going even on cloudy Nordic days, rewards are deposited daily.</p>
+                    <div class="t-who">
+                        <h4>Collin B.</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>Early adopter value, family-friendly learning</h5>
+                    <p class="t-text">Found Nubila and finally pulled the trigger. The biggest selling point was it&rsquo;s actually teaching my kids about meteorology &mdash; we compare hyperlocal data every morning with the official app. Rewards are a great bonus.</p>
+                    <div class="t-who">
+                        <h4>Nick</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>Great product, even better support</h5>
+                    <p class="t-text">Really liked how easy the Nubila was to set up. I did have a couple small problems with the app initially, Discord support jumped in and solved everything in 15 minutes. The hardware is solidly built and has survived 3 months of desert sun.</p>
+                    <div class="t-who">
+                        <h4>Bob</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card fade-in-up">
+                    <div class="t-quote">&ldquo;</div>
+                    <h5>A weather station you can take anywhere</h5>
+                    <p class="t-text">Easy setup. Love the portability and having a weather station wherever I go. I bring Marco camping, to the farm, and when we travel &mdash; just mount it, turn on hotspot, and I am contributing data from a new location. Super fun.</p>
+                    <div class="t-who">
+                        <h4>Michael C.</h4>
+                        <p>Certified Shopper</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         GLOBAL DISTRIBUTOR BANNER
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="distributor-banner fade-in-up">
+                <div>
+                    <h2>Become a <span>Global Distributor</span></h2>
+                    <p>Want to bring Marco to your region or country? Nubila is actively partnering with local resellers, distributors, and enterprise system integrators worldwide. Get bulk pricing, regional support, and dedicated co-marketing resources.</p>
+                    <div class="distributor-cta">
+                        <a href="#contact-section" class="btn btn-primary">Become a Partner</a>
+                        <a href="mailto:gm@nubila.network" class="btn btn-secondary">Email Us</a>
+                    </div>
+                </div>
+                <div class="distributor-visual">
+                    <img src="Data/ESGOracle.png" alt="ESG Oracle"
+                         onerror="this.onerror=null;this.style.display='none';this.parentNode.innerHTML=`
+                    <svg viewBox='0 0 320 320' xmlns='http://www.w3.org/2000/svg'>
+                      <defs>
+                        <radialGradient id='glow' cx='50%' cy='40%'>
+                          <stop offset='0%' stop-color='rgba(56,227,255,0.35)'/>
+                          <stop offset='100%' stop-color='transparent'/>
+                        </radialGradient>
+                      </defs>
+                      <rect width='320' height='320' fill='url(#glow)'/>
+                      <g transform='translate(160 160)'>
+                        <circle r='100' fill='none' stroke='rgba(56,227,255,0.25)' stroke-width='1' stroke-dasharray='4 6'/>
+                        <circle r='72' fill='none' stroke='rgba(114,224,251,0.35)' stroke-width='1'/>
+                        <circle r='40' fill='rgba(56,227,255,0.1)' stroke='rgba(114,224,251,0.55)' stroke-width='1.5'/>
+                        <circle r='10' fill='#38E3FF'/>
+                        <!-- Node points -->
+                        <g fill='#72E0FB'>
+                          <circle cx='100' cy='0' r='4'/>
+                          <circle cx='72' cy='-72' r='4'/>
+                          <circle cx='0' cy='-100' r='4'/>
+                          <circle cx='-72' cy='-72' r='4'/>
+                          <circle cx='-100' cy='0' r='4'/>
+                          <circle cx='-72' cy='72' r='4'/>
+                          <circle cx='0' cy='100' r='4'/>
+                          <circle cx='72' cy='72' r='4'/>
+                        </g>
+                      </g>
+                    </svg>`;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="section-heading-label">FAQ</div>
+            <h2 class="section-heading-title">Frequently Asked <span style="background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;">Questions</span></h2>
+
+            <div class="faq-list">
+                <div class="faq-item fade-in-up">
+                    <h5>How can I monetize my weather insights?</h5>
+                    <p>While Marco collects weather data from your location, you&rsquo;re contributing to the broader Nubila Oracle network. Contributions are periodically rewarded in $NB tokens that can be tracked directly in the mobile app or user dashboard. No locking, no subscriptions &mdash; simply run your station and earn.</p>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <h5>Do I need to charge or replace batteries?</h5>
+                    <p>Nope. Marco includes a solar panel so it can run day and night with zero external power during normal use. The 4000mAh internal battery keeps the station running for 3+ days without direct sun and automatically recharges when sunlight returns.</p>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <h5>What makes Marco different from other weather stations?</h5>
+                    <p>All weather stations give you data but only Marco gives you data and tangible rewards. Every measurement becomes a verified oracle signal used by AI models, DeFi protocols, and enterprises &mdash; with value redistributed back to contributors like you.</p>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <h5>Is it difficult to install?</h5>
+                    <p>Not at all. Most users set up Marco in under 10 minutes &mdash; no technicians. Just mount it on a pole, fence, or rooftop with a clear view of the sky, download the Nubila app, and follow the on-screen pairing flow over Bluetooth or Wi-Fi.</p>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <h5>What kind of weather does Marco track?</h5>
+                    <p>Marco continuously tracks temperature, humidity, UV, wind, and air pressure &mdash; with sensor-level accuracy documented in the technical specifications. Data is displayed in real time inside the Nubila mobile app.</p>
+                </div>
+                <div class="faq-item fade-in-up">
+                    <h5>What happens if it rains, snows, or the weather gets rough?</h5>
+                    <p>Marco is built to last. With IP56 protection, it handles rain, wind, dust, and temperatures from -40°C to 80°C. The rugged metal chassis and outdoor-rated plastics mean it&rsquo;s engineered to sit on your roof for years without maintenance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         CONTACT
+         ============================================================ -->
+    <section class="section" id="contact-section">
+        <div class="container">
+            <div class="section-heading-label">We Are Here to Help</div>
+            <h2 class="section-heading-title">Contact <span style="background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;">US</span></h2>
+
+            <div class="contact-grid">
+                <div class="contact-card fade-in-up">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="#72E0FB" stroke-width="1.6"/>
+                            <path d="M3 7l9 6 9-6" stroke="#72E0FB" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h5>Email</h5>
+                    <a href="mailto:service@nubila.ai">service@nubila.ai</a>
+                </div>
+                <div class="contact-card fade-in-up">
+                    <div class="c-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 6a10 10 0 0110 10M8 3a13 13 0 0113 13M8 9a6 6 0 016 6" stroke="#72E0FB" stroke-width="1.6" stroke-linecap="round"/>
+                            <circle cx="6.5" cy="17.5" r="2.5" fill="none" stroke="#72E0FB" stroke-width="1.6"/>
+                        </svg>
+                    </div>
+                    <h5>Exclusive Discord</h5>
+                    <a href="https://discord.com/invite/nubila" target="_blank" rel="noreferrer noopener">Join our Discord</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         RETURN & REFUND POLICY
+         ============================================================ -->
+    <section class="section">
+        <div class="container">
+            <div class="policy-shell fade-in-up">
+                <h3>Return &amp; Refund Policy</h3>
+
+                <div class="policy-clause">
+                    <h5>1. Return Eligibility</h5>
+                    <p>Hardware products purchased directly from Nubila may be returned within thirty (30) calendar days of the original ship date, provided ALL of the following conditions are met:</p>
+                    <ul>
+                        <li>The device must be in original physical condition</li>
+                        <li>The device must not be damaged or modified</li>
+                        <li>The device must be fully unbound from any Nubila account prior to return</li>
+                        <li>All original accessories must be included</li>
+                    </ul>
+                    <p>Failure to unbind the device from the associated account will delay or void processing of your refund.</p>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>2. Return Authorization</h5>
+                    <p>Prior to returning any product, customers must contact Nubila at <a href="mailto:hi@nubila.ai">hi@nubila.ai</a> to request a Return Merchandise Authorization (RMA). We will guide you through the return process with the exact return address, packing requirements, and expected timelines.</p>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>3. Shipping Responsibility</h5>
+                    <p>Customers are responsible for:</p>
+                    <ul>
+                        <li>All return shipping costs</li>
+                        <li>Secure packaging of the device</li>
+                    </ul>
+                    <p>Nubila is not responsible for damage occurring during return shipment. Original outbound shipping costs are non-refundable unless the return is a result of our error (wrong item shipped, defective out of the box, etc.).</p>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>4. Refund Processing</h5>
+                    <p>Upon receipt and inspection of the returned product:</p>
+                    <ul>
+                        <li>If approved, a refund will be issued to the original payment method</li>
+                        <li>Refund processing may take 5&ndash;10 business days</li>
+                    </ul>
+                    <p>Refund amount will exclude:</p>
+                    <ul>
+                        <li>Original shipping fees</li>
+                        <li>Any applicable transaction fees (if required by payment processor)</li>
+                    </ul>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>5. Non-Returnable Items</h5>
+                    <p>The following are not eligible for return:</p>
+                    <ul>
+                        <li>Devices damaged due to misuse</li>
+                        <li>Devices modified or opened without authorization</li>
+                        <li>Devices not unbound from user accounts</li>
+                        <li>Products returned after the 30-day return window</li>
+                    </ul>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>6. Warranty vs. Return</h5>
+                    <p>This Return Policy is separate from Nubila&rsquo;s Limited Hardware Warranty. Warranty claims relating to defects after the 30-day return window are handled through the limited warranty process outlined in the product documentation, not through the standard return flow.</p>
+                </div>
+
+                <div class="policy-clause">
+                    <h5>7. Right to Refuse</h5>
+                    <p>Nubila reserves the right to refuse returns that do not comply with this policy. All decisions regarding return eligibility and refund issuance are final.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-logo-big">
+                    <img src="Data/logoo.PNG" alt="Nubila" onerror="this.onerror=null;this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 44%22%3E%3Ctext x=%220%22 y=%2232%22 font-family=%22Poppins,sans-serif%22 font-size=%2230%22 font-weight=%22700%22 fill=%22white%22%3Enubila%3C/text%3E%3C/svg%3E';">
+                </div>
+                <div class="footer-social">
+                    <a href="https://x.com/nubilarh?s=11" target="_blank" rel="noreferrer noopener" aria-label="Twitter">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+
+                <div class="footer-store-links">
+                    <a href="https://apps.apple.com/us/app/nubila/id6736720461" target="_blank" rel="noreferrer noopener" class="store-btn" aria-label="App Store">
+                        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.2 15c-.1 1.9.8 2.9.9 2.9-.1.2-1.3 3.8-3.5 3.8-2.1 0-2.8-1.4-3.4-1.4-.7 0-1 1.4-3.4 1.5C9.1 21.8 6.8 18.1 6.8 18.1 7.9 14.5 10 9.4 12.6 9.4c1.2 0 2.3 1.4 3.4 1.4 1.1 0 2-1.4 3.4-1.4 1.6 0 2.8 1.1 3.5 2.3-2.8 1.5-2.5 4.4-1.1 5.4z" fill="white"/>
+                            <path d="M16.3 5c0 .8-.4 2-1 2.8-.8.9-1.9 1.6-3 1.7 0-1 .5-2.2 1.1-2.9.8-.8 1.9-1.4 2.9-1.6z" fill="white"/>
+                        </svg>
+                        <div>
+                            <span class="sb-label">Download on the</span>
+                            <span class="sb-title">App Store</span>
+                        </div>
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=ai.nubila.weatherapp" target="_blank" rel="noreferrer noopener" class="store-btn" aria-label="Google Play">
+                        <svg viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 3.5 L4 22.5 L20 13 Z" fill="white" opacity="0.95"/>
+                            <path d="M20 13 L13.5 19 L5.5 22 L12.5 13 Z" fill="#FFC44F"/>
+                            <path d="M20 13 L13.5 7 L5.5 4 L12.5 13 Z" fill="#32C42C"/>
+                            <path d="M20 13 L17.5 10.5 L13.5 7 L12.5 13 Z" fill="#FF4D4D"/>
+                        </svg>
+                        <div>
+                            <span class="sb-label">GET IT ON</span>
+                            <span class="sb-title">Google Play</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="media-kit-link">
+                    <a href="https://t.ly/E9pQg" target="_blank" rel="noreferrer noopener">Our Media Kit &raquo;</a>
+                </div>
+            </div>
+
+            <nav class="footer-legal">
+                <a href="#">Terms of Service</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+                <a href="#">Data Disclaimer</a>
+            </nav>
+
+            <p class="footer-disclaimer">*Nubila provides data infrastructure services and does not offer investment advice, tokens, or securities. Any tokenized incentive programs referenced are described solely for informational purposes and may be subject to local laws in your jurisdiction.</p>
+
+            <div class="footer-copyright">&copy; 2026 Butterflyx Inc - All Rights Reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile hamburger / close
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                const open = mobileMenu.classList.toggle('open');
+                hamburger.classList.toggle('open', open);
+                document.body.classList.toggle('mobile-menu-open', open);
+            });
+        }
+
+        // Close mobile menu when a link clicked
+        mobileMenu?.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                hamburger?.classList.remove('open');
+                document.body.classList.remove('mobile-menu-open');
+            });
+        });
+
+        // Fade-in-up on scroll
+        try {
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('fade-in-up');
+                        io.unobserve(e.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.feature-card, .testimonial-card, .faq-item, .contact-card, .marco-showcase, .specs-shell, .distributor-banner, .policy-shell, .measure-strip').forEach(el => {
+                el.classList.remove('fade-in-up');
+                io.observe(el);
+            });
+        } catch(e) {}
+    </script>
+</body>
+</html>
